@@ -136,9 +136,9 @@ const Editor = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Editor Section */}
-          <div className="space-y-6 animate-fade-up">
+        <div className="grid md:grid-cols-2 gap-8 relative">
+          {/* Editor Section - Now scrollable */}
+          <div className="space-y-6 animate-fade-up max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
             {/* Personal Information */}
             <Card className="glass-card p-6">
               <h2 className="text-2xl font-semibold mb-4">Personal Information</h2>
@@ -303,8 +303,8 @@ const Editor = () => {
             </Card>
           </div>
 
-          {/* Preview Section */}
-          <div className="bg-white rounded-lg shadow-lg p-8 animate-fade-in">
+          {/* Preview Section - Now fixed */}
+          <div className="bg-white rounded-lg shadow-lg p-8 animate-fade-in h-[calc(100vh-8rem)] overflow-y-auto sticky top-8">
             <div className="space-y-6">
               {/* Personal Info Preview */}
               <div className="text-center border-b pb-6">
