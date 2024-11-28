@@ -3,9 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Download } from "lucide-react";
+import { ArrowLeft, Download, Wand2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { sampleCVData } from "@/utils/sampleCVData";
+import { toast } from "sonner";
 
 interface CVData {
   personalInfo: {
@@ -110,6 +112,11 @@ const Editor = () => {
     setCvData({ ...cvData, skills: [...cvData.skills, ""] });
   };
 
+  const handleAutoFill = () => {
+    setCvData(sampleCVData);
+    toast.success("CV fields have been filled with sample data");
+  };
+
   return (
     <div className="min-h-screen bg-muted">
       <div className="container mx-auto px-4 py-8">
@@ -119,9 +126,14 @@ const Editor = () => {
               <ArrowLeft className="mr-2 h-4 w-4" /> Back
             </Button>
           </Link>
-          <Button className="button-hover">
-            <Download className="mr-2 h-4 w-4" /> Export PDF
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={handleAutoFill} variant="outline" className="button-hover">
+              <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
+            </Button>
+            <Button className="button-hover">
+              <Download className="mr-2 h-4 w-4" /> Export PDF
+            </Button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
