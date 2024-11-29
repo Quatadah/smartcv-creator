@@ -1,10 +1,9 @@
-import { useState, useRef } from "react";
-import { CVData } from "@/types/cv";
-import { EditorHeader } from "@/components/cv/EditorHeader";
 import { EditorForm } from "@/components/cv/EditorForm";
+import { EditorHeader } from "@/components/cv/EditorHeader";
 import { PreviewSection } from "@/components/cv/PreviewSection";
-import { Check, Circle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Stepper } from "@/components/cv/Stepper";
+import { CVData } from "@/types/cv";
+import { useRef, useState } from "react";
 
 const Editor = () => {
   const [cvData, setCvData] = useState<CVData>({
@@ -44,10 +43,13 @@ const Editor = () => {
     { id: "skills", label: "Skills", step: 5 },
   ];
 
-  const getStepStatus = (sectionId: string) => {
-    const currentIndex = sections.findIndex(s => s.id === activeSection);
-    const thisIndex = sections.findIndex(s => s.id === sectionId);
-    return thisIndex < currentIndex ? "completed" : thisIndex === currentIndex ? "current" : "upcoming";
+  const handleNavigate = (direction: 'prev' | 'next') => {
+    const currentIndex = sections.findIndex(section => section.id === activeSection);
+    if (direction === 'next' && currentIndex < sections.length - 1) {
+      setActiveSection(sections[currentIndex + 1].id);
+    } else if (direction === 'prev' && currentIndex > 0) {
+      setActiveSection(sections[currentIndex - 1].id);
+    }
   };
 
   return (
@@ -63,65 +65,13 @@ const Editor = () => {
       />
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-12 gap-8 relative">
-          {/* Left sidebar with stepper */}
-          <div className="col-span-3 space-y-2">
-            <div className="glass-card p-6 sticky top-24">
-              <div className="flex flex-col space-y-8">
-                {sections.map((section, index) => (
-                  <div key={section.id} className="relative">
-                    <button
-                      onClick={() => setActiveSection(section.id)}
-                      className="flex items-center space-x-3"
-                    >
-                      {/* Step circle with number or check */}
-                      <div
-                        className={cn(
-                          "w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors",
-                          getStepStatus(section.id) === "completed" 
-                            ? "bg-primary border-primary text-white"
-                            : getStepStatus(section.id) === "current"
-                            ? "border-primary text-primary"
-                            : "border-gray-300 text-gray-300"
-                        )}
-                      >
-                        {getStepStatus(section.id) === "completed" ? (
-                          <Check className="w-5 h-5" />
-                        ) : (
-                          <span className="text-sm font-medium">{section.step}</span>
-                        )}
-                      </div>
-                      
-                      {/* Section label */}
-                      <span
-                        className={cn(
-                          "text-sm font-medium transition-colors",
-                          getStepStatus(section.id) === "completed" || getStepStatus(section.id) === "current"
-                            ? "text-primary"
-                            : "text-gray-400"
-                        )}
-                      >
-                        {section.label}
-                      </span>
-                    </button>
+        <Stepper 
+          sections={sections}
+          activeSection={activeSection}
+          onSectionChange={setActiveSection}
+        />
 
-                    {/* Connecting line */}
-                    {index < sections.length - 1 && (
-                      <div 
-                        className={cn(
-                          "absolute left-4 top-8 w-0.5 h-8 -translate-x-1/2",
-                          getStepStatus(section.id) === "completed"
-                            ? "bg-primary"
-                            : "bg-gray-200"
-                        )}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
+        <div className="grid grid-cols-9 gap-8 relative">
           {/* Main content area */}
           <div className="col-span-5">
             <EditorForm 
@@ -129,6 +79,24 @@ const Editor = () => {
               setCvData={setCvData} 
               activeSection={activeSection} 
             />
+            
+            {/* Navigation buttons */}
+            <div className="flex justify-between mt-6">
+              <button
+                onClick={() => handleNavigate('prev')}
+                disabled={activeSection === sections[0].id}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors"
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => handleNavigate('next')}
+                disabled={activeSection === sections[sections.length - 1].id}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-700 transition-colors"
+              >
+                Next
+              </button>
+            </div>
           </div>
 
           {/* Preview area */}
