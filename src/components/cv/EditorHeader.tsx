@@ -17,8 +17,6 @@ interface EditorHeaderProps {
   previewRef: React.RefObject<HTMLDivElement>;
   template: string;
   setTemplate: (template: string) => void;
-  activeSection: string;
-  setActiveSection: (section: string) => void;
 }
 
 export function EditorHeader({
@@ -29,8 +27,6 @@ export function EditorHeader({
   previewRef,
   template,
   setTemplate,
-  activeSection,
-  setActiveSection,
 }: EditorHeaderProps) {
   const calculateProgress = () => {
     let progress = 0;
@@ -67,57 +63,32 @@ export function EditorHeader({
     toast.success("CV data saved successfully!");
   };
 
-  const sections = [
-    { id: "personal", label: "Personal Info" },
-    { id: "summary", label: "Summary" },
-    { id: "experience", label: "Experience" },
-    { id: "education", label: "Education" },
-    { id: "skills", label: "Skills" },
-  ];
-
   return (
     <>
       {showConfetti && <Confetti />}
       <div className="sticky top-0 z-50 backdrop-blur-md bg-white/30 border-b border-white/20 shadow-sm">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                <Link to="/">
-                  <Button variant="ghost" className="hover-scale">
-                    <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                  </Button>
-                </Link>
-                <TemplateSelector currentTemplate={template} onTemplateChange={setTemplate} />
-              </div>
-              <div className="flex gap-2">
-                <Button onClick={handleAutoFill} variant="outline" className="hover-scale">
-                  <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-4">
+              <Link to="/">
+                <Button variant="ghost" className="hover-scale">
+                  <ArrowLeft className="mr-2 h-4 w-4" /> Back
                 </Button>
-                <Button onClick={handleSave} variant="outline" className="hover-scale">
-                  <Save className="mr-2 h-4 w-4" /> Save Progress
-                </Button>
-                <PDFExport previewRef={previewRef} />
-              </div>
+              </Link>
+              <TemplateSelector currentTemplate={template} onTemplateChange={setTemplate} />
             </div>
-            <div className="w-full">
-              <Progress value={calculateProgress()} className="h-2" />
-              <div className="flex justify-between text-sm mt-1">
-                {sections.map((section) => (
-                  <button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={`px-3 py-1 rounded transition-colors ${
-                      activeSection === section.id
-                        ? "text-primary font-medium"
-                        : "text-gray-500 hover:text-gray-700"
-                    }`}
-                  >
-                    {section.label}
-                  </button>
-                ))}
-              </div>
+            <div className="flex gap-2">
+              <Button onClick={handleAutoFill} variant="outline" className="hover-scale">
+                <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
+              </Button>
+              <Button onClick={handleSave} variant="outline" className="hover-scale">
+                <Save className="mr-2 h-4 w-4" /> Save Progress
+              </Button>
+              <PDFExport previewRef={previewRef} />
             </div>
+          </div>
+          <div className="w-full mt-4">
+            <Progress value={calculateProgress()} className="h-2" />
           </div>
         </div>
       </div>

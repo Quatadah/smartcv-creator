@@ -34,6 +34,14 @@ const Editor = () => {
   const [activeSection, setActiveSection] = useState("personal");
   const previewRef = useRef<HTMLDivElement>(null);
 
+  const sections = [
+    { id: "personal", label: "Personal Info" },
+    { id: "summary", label: "Summary" },
+    { id: "experience", label: "Experience" },
+    { id: "education", label: "Education" },
+    { id: "skills", label: "Skills" },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
       <EditorHeader
@@ -44,14 +52,42 @@ const Editor = () => {
         previewRef={previewRef}
         template={template}
         setTemplate={setTemplate}
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
       />
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 gap-8 relative">
-          <EditorForm cvData={cvData} setCvData={setCvData} activeSection={activeSection} />
-          <div ref={previewRef}>
+        <div className="grid grid-cols-12 gap-8 relative">
+          {/* Left sidebar with sections */}
+          <div className="col-span-3 space-y-2">
+            <div className="glass-card p-4 sticky top-24">
+              <div className="space-y-2">
+                {sections.map((section) => (
+                  <button
+                    key={section.id}
+                    onClick={() => setActiveSection(section.id)}
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                      activeSection === section.id
+                        ? "bg-primary text-white"
+                        : "hover:bg-white/50"
+                    }`}
+                  >
+                    {section.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Main content area */}
+          <div className="col-span-5">
+            <EditorForm 
+              cvData={cvData} 
+              setCvData={setCvData} 
+              activeSection={activeSection} 
+            />
+          </div>
+
+          {/* Preview area */}
+          <div className="col-span-4" ref={previewRef}>
             <PreviewSection cvData={cvData} template={template} />
           </div>
         </div>
