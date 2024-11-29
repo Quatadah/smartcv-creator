@@ -20,11 +20,13 @@
 
   body {
     @apply bg-background text-foreground font-['Inter'];
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
   }
 }
 
 .glass-card {
-  @apply bg-white bg-opacity-50 backdrop-blur-lg border border-white border-opacity-20 shadow-lg;
+  @apply bg-white/50 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300;
 }
 
 .hover-scale {
@@ -33,4 +35,21 @@
 
 .button-hover {
   @apply transition-all duration-300 hover:brightness-110;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
 }

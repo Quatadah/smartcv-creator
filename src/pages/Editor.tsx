@@ -3,9 +3,9 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Download, Wand2 } from "lucide-react";
+import { ArrowLeft, Download, Wand2, Save } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { sampleCVData } from "@/utils/sampleCVData";
 import { toast } from "sonner";
 import { AIAssistant } from "@/components/cv/AIAssistant";
@@ -16,6 +16,8 @@ import { ExperienceSection } from "@/components/cv/ExperienceSection";
 import { EducationSection } from "@/components/cv/EducationSection";
 import { SkillsSection } from "@/components/cv/SkillsSection";
 import { PreviewSection } from "@/components/cv/PreviewSection";
+import { PDFExport } from "@/components/cv/PDFExport";
+import { Confetti } from "@/components/cv/Confetti";
 
 const Editor = () => {
   const [cvData, setCvData] = useState<CVData>({
@@ -42,9 +44,19 @@ const Editor = () => {
     skills: [""],
   });
 
+  const [showConfetti, setShowConfetti] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
+
   const handleAutoFill = () => {
     setCvData(sampleCVData);
     toast.success("CV fields have been filled with sample data");
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 3000);
+  };
+
+  const handleSave = () => {
+    localStorage.setItem('cvData', JSON.stringify(cvData));
+    toast.success("CV data saved successfully!");
   };
 
   const updatePersonalInfo = (field: keyof typeof cvData.personalInfo, value: string) => {
@@ -103,23 +115,31 @@ const Editor = () => {
 
   return (
     <div className="min-h-screen bg-muted">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <Link to="/">
-            <Button variant="ghost" className="button-hover">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back
-            </Button>
-          </Link>
-          <div className="flex gap-2">
-            <Button onClick={handleAutoFill} variant="outline" className="button-hover">
-              <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
-            </Button>
-            <Button className="button-hover">
-              <Download className="mr-2 h-4 w-4" /> Export PDF
-            </Button>
+      {showConfetti && <Confetti />}
+      
+      {/* Glass effect header */}
+      <div className="sticky top-0 z-50 backdrop-blur-md bg-white/30 border-b border-white/20 shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <Link to="/">
+              <Button variant="ghost" className="hover-scale">
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+              </Button>
+            </Link>
+            <div className="flex gap-2">
+              <Button onClick={handleAutoFill} variant="outline" className="hover-scale">
+                <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
+              </Button>
+              <Button onClick={handleSave} variant="outline" className="hover-scale">
+                <Save className="mr-2 h-4 w-4" /> Save Progress
+              </Button>
+              <PDFExport previewRef={previewRef} />
+            </div>
           </div>
         </div>
+      </div>
 
+      <div className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-2 gap-8 relative">
           <div className="space-y-6 animate-fade-up max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
             <PersonalInfoSection
@@ -146,26 +166,61 @@ const Editor = () => {
 
             <ExperienceSection
               experience={cvData.experience}
-              onUpdate={updateExperience}
-              onAdd={addExperience}
+              onUpdate={(index, field, value) => {
+                const newExperience = [...cvData.experience];
+                newExperience[index] = { ...newExperience[index], [field]: value };
+                setCvData({ ...cvData, experience: newExperience });
+              }}
+              onAdd={() => {
+                setCvData({
+                  ...cvData,
+                  experience: [
+                    ...cvData.experience,
+                    { title: "", company: "", startDate: "", endDate: "", description: "" },
+                  ],
+                });
+              }}
             />
 
             <EducationSection
               education={cvData.education}
-              onUpdate={updateEducation}
-              onAdd={addEducation}
+              onUpdate={(index, field, value) => {
+                const newEducation = [...cvData.education];
+                newEducation[index] = { ...newEducation[index], [field]: value };
+                setCvData({ ...cvData, education: newEducation });
+              }}
+              onAdd={() => {
+                setCvData({
+                  ...cvData,
+                  education: [
+                    ...cvData.education,
+                    { degree: "", institution: "", year: "", description: "" },
+                  ],
+                });
+              }}
             />
 
             <SkillsSection
               skills={cvData.skills}
-              onUpdate={updateSkills}
-              onAdd={addSkill}
+              onUpdate={(index, value) => {
+                const newSkills = [...cvData.skills];
+                newSkills[index] = value;
+                setCvData({ ...cvData, skills: newSkills });
+              }}
+              onAdd={() => {
+                setCvData({
+                  ...cvData,
+                  skills: [...cvData.skills, ""],
+                });
+              }}
             />
 
             <CVAnalyzer cvData={cvData} />
           </div>
 
-          <PreviewSection cvData={cvData} />
+          <div ref={previewRef} className="bg-white rounded-lg shadow-lg p-8 animate-fade-in h-[calc(100vh-8rem)] overflow-y-auto sticky top-8">
+            <PreviewSection cvData={cvData} />
+          </div>
         </div>
       </div>
     </div>
