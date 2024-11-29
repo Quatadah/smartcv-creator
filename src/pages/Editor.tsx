@@ -31,6 +31,7 @@ const Editor = () => {
 
   const [template, setTemplate] = useState("modern");
   const [showConfetti, setShowConfetti] = useState(false);
+  const [activeSection, setActiveSection] = useState("personal");
   const previewRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -43,11 +44,13 @@ const Editor = () => {
         previewRef={previewRef}
         template={template}
         setTemplate={setTemplate}
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
       />
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-2 gap-8 relative">
-          <EditorForm cvData={cvData} setCvData={setCvData} />
+          <EditorForm cvData={cvData} setCvData={setCvData} activeSection={activeSection} />
           <div ref={previewRef}>
             <PreviewSection cvData={cvData} template={template} />
           </div>

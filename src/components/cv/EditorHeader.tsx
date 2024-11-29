@@ -17,6 +17,8 @@ interface EditorHeaderProps {
   previewRef: React.RefObject<HTMLDivElement>;
   template: string;
   setTemplate: (template: string) => void;
+  activeSection: string;
+  setActiveSection: (section: string) => void;
 }
 
 export function EditorHeader({
@@ -27,6 +29,8 @@ export function EditorHeader({
   previewRef,
   template,
   setTemplate,
+  activeSection,
+  setActiveSection,
 }: EditorHeaderProps) {
   const calculateProgress = () => {
     let progress = 0;
@@ -63,6 +67,14 @@ export function EditorHeader({
     toast.success("CV data saved successfully!");
   };
 
+  const sections = [
+    { id: "personal", label: "Personal Info" },
+    { id: "summary", label: "Summary" },
+    { id: "experience", label: "Experience" },
+    { id: "education", label: "Education" },
+    { id: "skills", label: "Skills" },
+  ];
+
   return (
     <>
       {showConfetti && <Confetti />}
@@ -90,12 +102,20 @@ export function EditorHeader({
             </div>
             <div className="w-full">
               <Progress value={calculateProgress()} className="h-2" />
-              <div className="flex justify-between text-sm text-gray-500 mt-1">
-                <span>Personal Info</span>
-                <span>Summary</span>
-                <span>Experience</span>
-                <span>Education</span>
-                <span>Skills</span>
+              <div className="flex justify-between text-sm mt-1">
+                {sections.map((section) => (
+                  <button
+                    key={section.id}
+                    onClick={() => setActiveSection(section.id)}
+                    className={`px-3 py-1 rounded transition-colors ${
+                      activeSection === section.id
+                        ? "text-primary font-medium"
+                        : "text-gray-500 hover:text-gray-700"
+                    }`}
+                  >
+                    {section.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
