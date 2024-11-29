@@ -7,16 +7,14 @@ import { ExperienceSection } from "./ExperienceSection";
 import { EducationSection } from "./EducationSection";
 import { SkillsSection } from "./SkillsSection";
 import { CVAnalyzer } from "./CVAnalyzer";
-import { useState } from "react";
 
 interface EditorFormProps {
   cvData: CVData;
   setCvData: (data: CVData) => void;
+  activeSection: string;
 }
 
-export function EditorForm({ cvData, setCvData }: EditorFormProps) {
-  const [activeSection, setActiveSection] = useState<string>("personal");
-
+export function EditorForm({ cvData, setCvData, activeSection }: EditorFormProps) {
   const renderSection = () => {
     switch (activeSection) {
       case "personal":
