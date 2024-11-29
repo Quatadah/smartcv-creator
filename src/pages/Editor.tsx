@@ -34,11 +34,12 @@ const Editor = () => {
   const previewRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="min-h-screen bg-muted">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
       <EditorHeader
         showConfetti={showConfetti}
         setShowConfetti={setShowConfetti}
         setCvData={setCvData}
+        cvData={cvData}
         previewRef={previewRef}
         template={template}
         setTemplate={setTemplate}

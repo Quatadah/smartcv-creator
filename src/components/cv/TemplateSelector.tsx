@@ -29,9 +29,11 @@ export function TemplateSelector({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="modern">Modern</SelectItem>
-          <SelectItem value="classic">Classic</SelectItem>
           <SelectItem value="minimal">Minimal</SelectItem>
+          <SelectItem value="compact">Compact</SelectItem>
           <SelectItem value="professional">Professional</SelectItem>
+          <SelectItem value="creative">Creative</SelectItem>
+          <SelectItem value="elegant">Elegant</SelectItem>
         </SelectContent>
       </Select>
     </div>
