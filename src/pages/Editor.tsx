@@ -2,6 +2,7 @@ import { EditorForm } from "@/components/cv/EditorForm";
 import { EditorHeader } from "@/components/cv/EditorHeader";
 import { PreviewSection } from "@/components/cv/PreviewSection";
 import { Stepper } from "@/components/cv/Stepper";
+import { Button } from "@/components/ui/button";
 import { CVData } from "@/types/cv";
 import { useRef, useState } from "react";
 
@@ -53,7 +54,7 @@ const Editor = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
+    <div className="min-h-screen bg-background">
       <EditorHeader
         showConfetti={showConfetti}
         setShowConfetti={setShowConfetti}
@@ -82,24 +83,22 @@ const Editor = () => {
             
             {/* Navigation buttons */}
             <div className="flex justify-between mt-6">
-              <button
+              <Button
                 onClick={() => handleNavigate('prev')}
                 disabled={activeSection === sections[0].id}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors"
+                variant="secondary"
               >
                 Previous
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => handleNavigate('next')}
                 disabled={activeSection === sections[sections.length - 1].id}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-700 transition-colors"
               >
                 Next
-              </button>
+              </Button>
             </div>
           </div>
 
-          {/* Preview area */}
           <div className="col-span-4" ref={previewRef}>
             <PreviewSection cvData={cvData} template={template} />
           </div>

@@ -113,7 +113,6 @@ export function EditorForm({ cvData, setCvData, activeSection }: EditorFormProps
   return (
     <div className="space-y-6 animate-fade-up max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
       {renderSection()}
-      <CVAnalyzer cvData={cvData} />
     </div>
   );
 }

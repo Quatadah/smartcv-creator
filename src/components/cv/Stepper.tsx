@@ -21,17 +21,17 @@ export const Stepper = ({ sections, activeSection, onSectionChange }: StepperPro
   };
 
   return (
-    <div className="glass-card p-6 mb-8">
+    <div className="bg-card p-6 mb-8 rounded-lg border shadow-sm">
       <div className="flex justify-between relative">
         {sections.map((section, index) => (
           <div key={section.id} className="flex flex-col items-center relative w-full">
-            {index > 0 &&index < sections.length - 1 && (
+            {index > 0 && index < sections.length - 1 && (
               <div 
                 className={cn(
                   "absolute top-4 h-0.5 left-[100%] w-[30%]",
                   getStepStatus(section.id) === "completed"
                     ? "bg-primary"
-                    : "bg-gray-200"
+                    : "bg-accent"
                 )}
               />
             )}
@@ -42,27 +42,28 @@ export const Stepper = ({ sections, activeSection, onSectionChange }: StepperPro
             >
               <div
                 className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors bg-white",
+                  "w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors",
                   getStepStatus(section.id) === "completed" 
-                    ? "bg-primary border-primary text-white"
+                    ? "bg-primary border-primary"
                     : getStepStatus(section.id) === "current"
-                    ? "border-primary text-primary"
-                    : "border-gray-300 text-gray-300"
+                    ? "bg-background border-primary text-primary"
+                    : "border-muted bg-background text-muted"
                 )}
               >
                 {getStepStatus(section.id) === "completed" ? (
-                  <Check className="w-5 h-5" />
+                  <Check className="h-4 w-4" />
                 ) : (
-                  <span className="text-sm font-medium">{section.step}</span>
+                  <span className="text-sm">{section.step}</span>
                 )}
               </div>
-              
               <span
                 className={cn(
-                  "text-sm font-medium transition-colors",
-                  getStepStatus(section.id) === "completed" || getStepStatus(section.id) === "current"
+                  "text-sm font-medium",
+                  getStepStatus(section.id) === "completed"
+                    ? "text-foreground"
+                    : getStepStatus(section.id) === "current"
                     ? "text-primary"
-                    : "text-gray-400"
+                    : ""
                 )}
               >
                 {section.label}
@@ -76,7 +77,7 @@ export const Stepper = ({ sections, activeSection, onSectionChange }: StepperPro
                   "absolute top-4 h-0.5 w-full",
                   getStepStatus(section.id) === "completed"
                     ? "bg-primary"
-                    : "bg-gray-200"
+                    : "bg-accent"
                 )}
                 style={{ left: '50%' }}
               />
@@ -86,4 +87,4 @@ export const Stepper = ({ sections, activeSection, onSectionChange }: StepperPro
       </div>
     </div>
   );
-}; 
+};

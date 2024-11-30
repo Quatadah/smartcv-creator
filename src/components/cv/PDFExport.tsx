@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@nextui-org/react";
 import { Download } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -43,13 +43,13 @@ export function PDFExport({ previewRef }: PDFExportProps) {
   };
 
   return (
-    <Button 
-      onClick={exportToPDF} 
-      disabled={isExporting}
-      className="button-hover"
+    <Button
+      variant="bordered"
+      onClick={exportToPDF}
+      isLoading={isExporting}
+      startContent={<Download size={16} />}
     >
-      <Download className="mr-2 h-4 w-4" />
-      {isExporting ? "Exporting..." : "Export PDF"}
+      Export PDF
     </Button>
   );
 }

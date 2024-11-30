@@ -66,7 +66,7 @@ export function EditorHeader({
   return (
     <>
       {showConfetti && <Confetti />}
-      <div className="sticky top-0 z-50 backdrop-blur-md bg-white/30 border-b border-white/20 shadow-sm">
+      <div className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -86,9 +86,6 @@ export function EditorHeader({
               </Button>
               <PDFExport previewRef={previewRef} />
             </div>
-          </div>
-          <div className="w-full mt-4">
-            <Progress value={calculateProgress()} className="h-2" />
           </div>
         </div>
       </div>

@@ -1,40 +1,44 @@
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Button } from "@nextui-org/button";
+import { Select, SelectItem } from "@nextui-org/select";
 import { Layout } from "lucide-react";
 
 interface TemplateSelectorProps {
-  currentTemplate: string;
-  onTemplateChange: (template: string) => void;
+  template: string;
+  setTemplate: (template: string) => void;
 }
 
 export function TemplateSelector({
-  currentTemplate,
-  onTemplateChange,
+  template,
+  setTemplate,
 }: TemplateSelectorProps) {
+  const templates = [
+    { value: "modern", label: "Modern" },
+    { value: "minimal", label: "Minimal" },
+    { value: "compact", label: "Compact" },
+    { value: "professional", label: "Professional" },
+    { value: "creative", label: "Creative" },
+    { value: "elegant", label: "Elegant" },
+  ];
+
   return (
     <div className="flex items-center gap-2">
-      <Button variant="outline" className="button-hover">
-        <Layout className="mr-2 h-4 w-4" />
+      <Button
+        variant="bordered"
+        startContent={<Layout size={16} />}
+      >
         Templates
       </Button>
-      <Select value={currentTemplate} onValueChange={onTemplateChange}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select template" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="modern">Modern</SelectItem>
-          <SelectItem value="minimal">Minimal</SelectItem>
-          <SelectItem value="compact">Compact</SelectItem>
-          <SelectItem value="professional">Professional</SelectItem>
-          <SelectItem value="creative">Creative</SelectItem>
-          <SelectItem value="elegant">Elegant</SelectItem>
-        </SelectContent>
+      <Select
+        selectedKeys={[template]}
+        onChange={(e) => setTemplate(e.target.value)}
+        className="w-[180px]"
+        placeholder="Select template"
+      >
+        {templates.map((template) => (
+          <SelectItem key={template.value} value={template.value}>
+            {template.label}
+          </SelectItem>
+        ))}
       </Select>
     </div>
   );
