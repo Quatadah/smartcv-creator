@@ -36,12 +36,12 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
               label="Study Period" 
               className="max-w-full"
               value={{
-                start: edu.year,
-                end: edu.year // Since education typically uses just one year, we'll use it for both
+                start: edu.year ? new Date(edu.year) : null,
+                end: edu.year ? new Date(edu.year) : null // Since education typically uses just one year, we'll use it for both
               }}
               onChange={(dates) => {
                 if (dates?.end) {
-                  onUpdate(index, "year", dates.end);
+                  onUpdate(index, "year", dates.end.toISOString());
                 }
               }}
             />
