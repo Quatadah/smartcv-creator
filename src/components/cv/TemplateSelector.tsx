@@ -1,6 +1,6 @@
-import { Button } from "@nextui-org/button";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Select, SelectItem } from "@nextui-org/react";
 import { Layout } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface TemplateSelectorProps {
   template: string;
@@ -24,8 +24,9 @@ export function TemplateSelector({
     <div className="flex items-center gap-2">
       <Button
         variant="bordered"
-        startContent={<Layout size={16} />}
+        className="flex items-center gap-2"
       >
+        <Layout size={16} />
         Templates
       </Button>
       <Select
@@ -33,6 +34,7 @@ export function TemplateSelector({
         onChange={(e) => setTemplate(e.target.value)}
         className="w-[180px]"
         placeholder="Select template"
+        variant="bordered"
       >
         {templates.map((template) => (
           <SelectItem key={template.value} value={template.value}>

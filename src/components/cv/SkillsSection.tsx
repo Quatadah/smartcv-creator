@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AIAssistant } from "./AIAssistant";
+import { Input } from "@nextui-org/react";
 
 interface SkillsSectionProps {
   skills: string[];
@@ -19,6 +19,8 @@ export function SkillsSection({ skills, onUpdate, onAdd }: SkillsSectionProps) {
             value={skill}
             onChange={(e) => onUpdate(index, e.target.value)}
             placeholder="Enter a skill"
+            variant="bordered"
+            className="max-w-full"
           />
         </div>
       ))}
