@@ -8,15 +8,15 @@ export interface PersonalInfo {
 export interface Experience {
   title: string;
   company: string;
-  startDate: Date | string;
-  endDate: Date | string;
+  startDate: string;
+  endDate: string;
   description: string;
 }
 
 export interface Education {
   degree: string;
   institution: string;
-  year: Date | string;
+  year: string;
   description: string;
 }
 

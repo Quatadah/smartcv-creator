@@ -5,6 +5,10 @@ interface TemplateProps {
 }
 
 export function MinimalTemplate({ cvData }: TemplateProps) {
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString();
+  };
+
   return (
     <div className="bg-background rounded-lg shadow-lg p-8 max-w-3xl mx-auto space-y-6">
       <div className="text-center pb-6">
@@ -36,7 +40,7 @@ export function MinimalTemplate({ cvData }: TemplateProps) {
                     <p className=" text-sm">{exp.company}</p>
                   </div>
                   <div className=" text-sm">
-                    {exp.startDate && `${exp.startDate} - ${exp.endDate || "Present"}`}
+                    {exp.startDate && `${formatDate(exp.startDate)} - ${exp.endDate ? formatDate(exp.endDate) : "Present"}`}
                   </div>
                 </div>
                 {exp.description && <p className="text-foreground/80 mt-2 text-sm">{exp.description}</p>}

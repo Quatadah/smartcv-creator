@@ -5,6 +5,10 @@ interface TemplateProps {
 }
 
 export function CompactTemplate({ cvData }: TemplateProps) {
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString();
+  };
+
   return (
     <div className="bg-background rounded-lg shadow-lg p-8 space-y-4">
       <div className="flex justify-between items-start border-b pb-4">
@@ -41,7 +45,7 @@ export function CompactTemplate({ cvData }: TemplateProps) {
                       {exp.company && <span className=""> • {exp.company}</span>}
                     </div>
                     <div className="">
-                      {exp.startDate && `${exp.startDate} - ${exp.endDate || "Present"}`}
+                      {exp.startDate && `${formatDate(exp.startDate)} - ${exp.endDate ? formatDate(exp.endDate) : "Present"}`}
                     </div>
                   </div>
                   {exp.description && <p className="text-foreground/80 mt-1">{exp.description}</p>}

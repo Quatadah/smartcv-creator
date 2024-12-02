@@ -37,15 +37,15 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               label="Employment Period" 
               className="max-w-full"
               value={{
-                start: exp.startDate ? new Date(exp.startDate) : null,
-                end: exp.endDate ? new Date(exp.endDate) : null
+                start: exp.startDate ? new Date(exp.startDate) : undefined,
+                end: exp.endDate ? new Date(exp.endDate) : undefined
               }}
               onChange={(dates) => {
                 if (dates?.start) {
-                  onUpdate(index, "startDate", dates.start.toISOString());
+                  onUpdate(index, "startDate", dates.start.toString());
                 }
                 if (dates?.end) {
-                  onUpdate(index, "endDate", dates.end.toISOString());
+                  onUpdate(index, "endDate", dates.end.toString());
                 }
               }}
             />

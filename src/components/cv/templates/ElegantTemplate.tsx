@@ -5,6 +5,10 @@ interface TemplateProps {
 }
 
 export function ElegantTemplate({ cvData }: TemplateProps) {
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString();
+  };
+
   return (
     <div className="bg-background rounded-lg shadow-lg p-8 max-w-3xl mx-auto">
       <div className="border-b-2 border-primary pb-6 mb-6">
@@ -47,7 +51,7 @@ export function ElegantTemplate({ cvData }: TemplateProps) {
                 <div className="flex justify-between items-baseline">
                   <h3 className="text-xl font-medium text-foreground">{exp.title}</h3>
                   <span className=" text-sm">
-                    {exp.startDate && `${exp.startDate} - ${exp.endDate || "Present"}`}
+                    {exp.startDate && `${formatDate(exp.startDate)} - ${exp.endDate ? formatDate(exp.endDate) : "Present"}`}
                   </span>
                 </div>
                 <p className=" mb-2">{exp.company}</p>

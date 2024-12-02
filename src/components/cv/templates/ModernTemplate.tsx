@@ -5,6 +5,10 @@ interface TemplateProps {
 }
 
 export function ModernTemplate({ cvData }: TemplateProps) {
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString();
+  };
+
   return (
     <div className="bg-background rounded-lg shadow-lg p-8 space-y-6">
       <div className="border-l-4 border-primary pl-4">
@@ -35,7 +39,7 @@ export function ModernTemplate({ cvData }: TemplateProps) {
                     <p className="">{exp.company}</p>
                   </div>
                   <div className=" text-sm">
-                    {exp.startDate && `${exp.startDate} - ${exp.endDate || "Present"}`}
+                    {exp.startDate && `${formatDate(exp.startDate)} - ${exp.endDate ? formatDate(exp.endDate) : "Present"}`}
                   </div>
                 </div>
                 {exp.description && <p className="text-foreground/80 mt-2">{exp.description}</p>}
