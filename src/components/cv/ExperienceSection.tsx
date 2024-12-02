@@ -1,4 +1,5 @@
-import { Card, Button, Input, Textarea, DateRangePicker } from "@nextui-org/react";
+import { Card } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 import { Experience } from "@/types/cv";
 import { AIAssistant } from "./AIAssistant";
 
@@ -32,22 +33,22 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               className="max-w-full"
             />
           </div>
-          <div className="mb-4">
-            <DateRangePicker 
-              label="Employment Period" 
+          <div className="mb-4 flex gap-4">
+            <Input
+              type="date"
+              label="Start Date"
+              placeholder="Select start date"
+              value={exp.startDate}
+              onChange={(e) => onUpdate(index, "startDate", e.target.value)}
               className="max-w-full"
-              value={{
-                start: exp.startDate ? new Date(exp.startDate) : null,
-                end: exp.endDate ? new Date(exp.endDate) : null
-              }}
-              onChange={(dates) => {
-                if (dates?.start) {
-                  onUpdate(index, "startDate", dates.start.toString());
-                }
-                if (dates?.end) {
-                  onUpdate(index, "endDate", dates.end.toString());
-                }
-              }}
+            />
+            <Input
+              type="date"
+              label="End Date"
+              placeholder="Select end date"
+              value={exp.endDate}
+              onChange={(e) => onUpdate(index, "endDate", e.target.value)}
+              className="max-w-full"
             />
           </div>
           <Textarea

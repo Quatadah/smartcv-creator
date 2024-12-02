@@ -1,5 +1,8 @@
-import { Card, Button, Input, Textarea, DateRangePicker } from "@nextui-org/react";
+import { Card } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 import { Education } from "@/types/cv";
+import { DateRangePicker } from "@nextui-org/react";
+import { parseISO } from "date-fns";
 
 interface EducationSectionProps {
   education: Education[];
@@ -32,18 +35,13 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
             />
           </div>
           <div className="mb-4">
-            <DateRangePicker 
-              label="Study Period" 
+            <Input
+              type="date"
+              label="Year"
+              placeholder="Select graduation year"
+              value={edu.year}
+              onChange={(e) => onUpdate(index, "year", e.target.value)}
               className="max-w-full"
-              value={{
-                start: edu.year ? new Date(edu.year) : null,
-                end: edu.year ? new Date(edu.year) : null
-              }}
-              onChange={(dates) => {
-                if (dates?.end) {
-                  onUpdate(index, "year", dates.end.toString());
-                }
-              }}
             />
           </div>
           <Textarea
