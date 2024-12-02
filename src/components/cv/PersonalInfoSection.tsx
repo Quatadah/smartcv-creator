@@ -18,7 +18,6 @@ export function PersonalInfoSection({ personalInfo, onUpdate }: PersonalInfoSect
           placeholder="Enter your full name"
           value={personalInfo.fullName}
           onChange={(e) => onUpdate("fullName", e.target.value)}
-          variant="bordered"
           className="max-w-full"
         />
         <Input
@@ -27,7 +26,6 @@ export function PersonalInfoSection({ personalInfo, onUpdate }: PersonalInfoSect
           placeholder="Enter your email"
           value={personalInfo.email}
           onChange={(e) => onUpdate("email", e.target.value)}
-          variant="bordered"
           className="max-w-full"
         />
       </div>
@@ -38,7 +36,6 @@ export function PersonalInfoSection({ personalInfo, onUpdate }: PersonalInfoSect
           placeholder="Enter your phone number"
           value={personalInfo.phone}
           onChange={(e) => onUpdate("phone", e.target.value)}
-          variant="bordered"
           className="max-w-full"
         />
         <Input
@@ -47,7 +44,6 @@ export function PersonalInfoSection({ personalInfo, onUpdate }: PersonalInfoSect
           placeholder="Enter your location"
           value={personalInfo.location}
           onChange={(e) => onUpdate("location", e.target.value)}
-          variant="bordered"
           className="max-w-full"
         />
       </div>

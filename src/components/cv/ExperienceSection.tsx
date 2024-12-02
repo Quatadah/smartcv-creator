@@ -21,7 +21,6 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               placeholder="Enter job title"
               value={exp.title}
               onChange={(e) => onUpdate(index, "title", e.target.value)}
-              variant="bordered"
               className="max-w-full"
             />
             <Input
@@ -30,7 +29,6 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               placeholder="Enter company name"
               value={exp.company}
               onChange={(e) => onUpdate(index, "company", e.target.value)}
-              variant="bordered"
               className="max-w-full"
             />
           </div>
@@ -41,7 +39,6 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               placeholder="Select start date"
               value={exp.startDate}
               onChange={(e) => onUpdate(index, "startDate", e.target.value)}
-              variant="bordered"
               className="max-w-full"
             />
             <Input
@@ -50,7 +47,6 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               placeholder="Select end date"
               value={exp.endDate}
               onChange={(e) => onUpdate(index, "endDate", e.target.value)}
-              variant="bordered"
               className="max-w-full"
             />
           </div>
@@ -59,7 +55,6 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
             placeholder="Enter job description"
             value={exp.description}
             onChange={(e) => onUpdate(index, "description", e.target.value)}
-            variant="bordered"
             className="max-w-full"
             minRows={3}
           />
@@ -72,7 +67,7 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
           />
         </div>
       ))}
-      <Button onClick={onAdd} variant="bordered" className="w-full">
+      <Button onClick={onAdd} className="w-full">
         Add Experience
       </Button>
     </Card>

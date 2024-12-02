@@ -36,7 +36,6 @@ export const AuthDialog = ({ isOpen, onClose, mode }: AuthDialogProps) => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            variant="bordered"
             className="max-w-full"
           />
           <Input
@@ -45,7 +44,6 @@ export const AuthDialog = ({ isOpen, onClose, mode }: AuthDialogProps) => {
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            variant="bordered"
             className="max-w-full"
           />
           <Button type="submit" color="primary" className="w-full">

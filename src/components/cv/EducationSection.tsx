@@ -20,7 +20,6 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
               placeholder="Enter your degree"
               value={edu.degree}
               onChange={(e) => onUpdate(index, "degree", e.target.value)}
-              variant="bordered"
               className="max-w-full"
             />
             <Input
@@ -29,7 +28,6 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
               placeholder="Enter institution name"
               value={edu.institution}
               onChange={(e) => onUpdate(index, "institution", e.target.value)}
-              variant="bordered"
               className="max-w-full"
             />
           </div>
@@ -40,7 +38,6 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
               placeholder="Enter graduation year"
               value={edu.year}
               onChange={(e) => onUpdate(index, "year", e.target.value)}
-              variant="bordered"
               className="max-w-full"
             />
           </div>
@@ -49,13 +46,12 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
             placeholder="Enter description"
             value={edu.description}
             onChange={(e) => onUpdate(index, "description", e.target.value)}
-            variant="bordered"
             className="max-w-full"
             minRows={3}
           />
         </div>
       ))}
-      <Button onClick={onAdd} variant="bordered" className="w-full">
+      <Button onClick={onAdd} className="w-full">
         Add Education
       </Button>
     </Card>
