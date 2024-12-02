@@ -23,7 +23,7 @@ export function TemplateSelector({
   return (
     <div className="flex items-center gap-2">
       <Button
-        variant="bordered"
+        variant="outline"
         className="flex items-center gap-2"
       >
         <Layout size={16} />

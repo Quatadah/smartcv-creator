@@ -13,17 +13,20 @@ export function SkillsSection({ skills, onUpdate, onAdd }: SkillsSectionProps) {
   return (
     <Card className="glass-card p-6">
       <h2 className="text-2xl font-semibold mb-4">Skills</h2>
-      {skills.map((skill, index) => (
-        <div key={index} className="mb-4">
+      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+        {skills.map((skill, index) => (
           <Input
+            key={index}
+            type="text"
+            label="Skill"
+            placeholder="Enter a skill"
             value={skill}
             onChange={(e) => onUpdate(index, e.target.value)}
-            placeholder="Enter a skill"
             variant="bordered"
             className="max-w-full"
           />
-        </div>
-      ))}
+        ))}
+      </div>
       <AIAssistant
         section="skills"
         currentContent={skills.join(", ")}

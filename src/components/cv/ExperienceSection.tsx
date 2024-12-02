@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Experience } from "@/types/cv";
 import { AIAssistant } from "./AIAssistant";
 import { Input, Textarea } from "@nextui-org/react";
-import { RangeCalendar } from "@nextui-org/calendar";
-import { getLocalTimeZone, today, parseDate } from "@internationalized/date";
 
 interface ExperienceSectionProps {
   experience: Experience[];
@@ -17,25 +15,32 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
     <Card className="glass-card p-6">
       <h2 className="text-2xl font-semibold mb-4">Work Experience</h2>
       {experience.map((exp, index) => (
-        <div key={index} className="mb-6 space-y-4">
-          <Input
-            label="Job Title"
-            value={exp.title}
-            onChange={(e) => onUpdate(index, "title", e.target.value)}
-            variant="bordered"
-            className="max-w-full"
-          />
-          <Input
-            label="Company"
-            value={exp.company}
-            onChange={(e) => onUpdate(index, "company", e.target.value)}
-            variant="bordered"
-            className="max-w-full"
-          />
-          <div className="grid grid-cols-2 gap-4">
+        <div key={index} className="mb-6">
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mb-4">
+            <Input
+              type="text"
+              label="Job Title"
+              placeholder="Enter job title"
+              value={exp.title}
+              onChange={(e) => onUpdate(index, "title", e.target.value)}
+              variant="bordered"
+              className="max-w-full"
+            />
+            <Input
+              type="text"
+              label="Company"
+              placeholder="Enter company name"
+              value={exp.company}
+              onChange={(e) => onUpdate(index, "company", e.target.value)}
+              variant="bordered"
+              className="max-w-full"
+            />
+          </div>
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mb-4">
             <Input
               type="month"
               label="Start Date"
+              placeholder="Select start date"
               value={exp.startDate}
               onChange={(e) => onUpdate(index, "startDate", e.target.value)}
               variant="bordered"
@@ -44,6 +49,7 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
             <Input
               type="month"
               label="End Date"
+              placeholder="Select end date"
               value={exp.endDate}
               onChange={(e) => onUpdate(index, "endDate", e.target.value)}
               variant="bordered"
@@ -52,6 +58,7 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
           </div>
           <Textarea
             label="Description"
+            placeholder="Enter job description"
             value={exp.description}
             onChange={(e) => onUpdate(index, "description", e.target.value)}
             variant="bordered"

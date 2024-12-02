@@ -11,32 +11,40 @@ export function PersonalInfoSection({ personalInfo, onUpdate }: PersonalInfoSect
   return (
     <Card className="glass-card p-6">
       <h2 className="text-2xl font-semibold mb-4">Personal Information</h2>
-      <div className="space-y-4">
+      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
         <Input
+          type="text"
           label="Full Name"
+          placeholder="Enter your full name"
           value={personalInfo.fullName}
           onChange={(e) => onUpdate("fullName", e.target.value)}
           variant="bordered"
           className="max-w-full"
         />
         <Input
-          label="Email"
           type="email"
+          label="Email"
+          placeholder="Enter your email"
           value={personalInfo.email}
           onChange={(e) => onUpdate("email", e.target.value)}
           variant="bordered"
           className="max-w-full"
         />
+      </div>
+      <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mt-4">
         <Input
-          label="Phone"
           type="tel"
+          label="Phone"
+          placeholder="Enter your phone number"
           value={personalInfo.phone}
           onChange={(e) => onUpdate("phone", e.target.value)}
           variant="bordered"
           className="max-w-full"
         />
         <Input
+          type="text"
           label="Location"
+          placeholder="Enter your location"
           value={personalInfo.location}
           onChange={(e) => onUpdate("location", e.target.value)}
           variant="bordered"
