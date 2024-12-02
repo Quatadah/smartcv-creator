@@ -1,6 +1,5 @@
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem, Button } from "@nextui-org/react";
 import { Layout } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface TemplateSelectorProps {
   currentTemplate: string;
@@ -23,10 +22,9 @@ export function TemplateSelector({
   return (
     <div className="flex items-center gap-2">
       <Button
-        variant="outline"
-        className="flex items-center gap-2"
+        variant="bordered"
+        startContent={<Layout size={16} />}
       >
-        <Layout size={16} />
         Templates
       </Button>
       <Select
