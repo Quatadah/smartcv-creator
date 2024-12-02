@@ -1,17 +1,32 @@
 import { Card } from "@nextui-org/react";
-import { Button, Input, Textarea } from "@nextui-org/react";
+import { Button, Input, Textarea, DateRangePicker } from "@nextui-org/react";
 import { Experience } from "@/types/cv";
 import { AIAssistant } from "./AIAssistant";
+import { today, getLocalTimeZone, parseDate, CalendarDate } from '@internationalized/date';
 
 interface ExperienceSectionProps {
   experience: Experience[];
-  onUpdate: (index: number, field: keyof Experience, value: string) => void;
+  onUpdate: (index: number, field: keyof Experience, value: string | { start: string; end: string }) => void;
   onAdd: () => void;
 }
 
 export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSectionProps) {
+  const formatDate = (date: CalendarDate) => {
+    return date.toString();
+  };
+
+  const handleDateRangeChange = (index: number, range: { start: CalendarDate; end: CalendarDate }) => {
+    onUpdate(index, "dateRange", {
+      start: formatDate(range.start),
+      end: formatDate(range.end)
+    });
+    // Also update the legacy date fields for backward compatibility
+    onUpdate(index, "startDate", formatDate(range.start));
+    onUpdate(index, "endDate", formatDate(range.end));
+  };
+
   return (
-    <Card className="p-6">
+    <Card className="glass-card p-6">
       <h2 className="text-2xl font-semibold mb-4">Work Experience</h2>
       {experience.map((exp, index) => (
         <div key={index} className="mb-6">
@@ -33,21 +48,17 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               className="max-w-full"
             />
           </div>
-          <div className="mb-4 flex gap-4">
-            <Input
-              type="date"
-              label="Start Date"
-              placeholder="Select start date"
-              value={exp.startDate}
-              onChange={(e) => onUpdate(index, "startDate", e.target.value)}
-              className="max-w-full"
-            />
-            <Input
-              type="date"
-              label="End Date"
-              placeholder="Select end date"
-              value={exp.endDate}
-              onChange={(e) => onUpdate(index, "endDate", e.target.value)}
+          <div className="mb-4">
+            <DateRangePicker
+              label="Employment Period"
+              value={exp.dateRange ? {
+                start: parseDate(exp.dateRange.start),
+                end: parseDate(exp.dateRange.end)
+              } : {
+                start: today(getLocalTimeZone()),
+                end: today(getLocalTimeZone())
+              }}
+              onChange={(range) => handleDateRangeChange(index, range)}
               className="max-w-full"
             />
           </div>

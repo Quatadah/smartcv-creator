@@ -10,7 +10,7 @@ export function CompactTemplate({ cvData }: TemplateProps) {
   };
 
   return (
-    <div className="bg-background rounded-lg shadow-lg p-8 space-y-4">
+    <div className="bg-background rounded-lg border p-8 space-y-4">
       <div className="flex justify-between items-start border-b pb-4">
         <div>
           <h1 className="text-2xl font-bold text-foreground">{cvData.personalInfo.fullName || "Your Name"}</h1>

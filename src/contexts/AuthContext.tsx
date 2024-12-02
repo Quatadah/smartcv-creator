@@ -5,6 +5,7 @@ import { toast } from "sonner";
 interface AuthContextType {
   isAuthenticated: boolean;
   login: (email: string, password: string) => void;
+  signup: (email: string, password: string, firstName: string, lastName: string) => void;
   logout: () => void;
 }
 
@@ -29,8 +30,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     navigate('/');
   };
 
+  const signup = (email: string, password: string, firstName: string, lastName: string) => {
+    if (email === 'admin@admin.com' && password === 'password') {
+      setIsAuthenticated(true);
+      toast.success("Successfully signed up!");
+      navigate('/editor');
+    } else {
+      toast.error("Invalid credentials");
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );

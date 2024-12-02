@@ -11,6 +11,10 @@ export interface Experience {
   startDate: string;
   endDate: string;
   description: string;
+  dateRange?: {
+    start: string;
+    end: string;
+  };
 }
 
 export interface Education {

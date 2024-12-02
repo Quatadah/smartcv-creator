@@ -3,6 +3,8 @@ import { ModernTemplate } from "./templates/ModernTemplate";
 import { MinimalTemplate } from "./templates/MinimalTemplate";
 import { CompactTemplate } from "./templates/CompactTemplate";
 import { ElegantTemplate } from "./templates/ElegantTemplate";
+import { ProfessionalTemplate } from "./templates/ProfessionalTemplate";
+import { CreativeTemplate } from "./templates/CreativeTemplate";
 
 interface PreviewSectionProps {
   cvData: CVData;
@@ -16,6 +18,8 @@ export function PreviewSection({ cvData, template }: PreviewSectionProps) {
       {template === "minimal" && <MinimalTemplate cvData={cvData} />}
       {template === "compact" && <CompactTemplate cvData={cvData} />}
       {template === "elegant" && <ElegantTemplate cvData={cvData} />}
+      {template === "professional" && <ProfessionalTemplate cvData={cvData} />}
+      {template === "creative" && <CreativeTemplate cvData={cvData} />}
     </div>
   );
 }

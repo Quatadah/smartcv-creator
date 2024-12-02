@@ -7,6 +7,7 @@ import { ExperienceSection } from "./ExperienceSection";
 import { EducationSection } from "./EducationSection";
 import { SkillsSection } from "./SkillsSection";
 import { CVAnalyzer } from "./CVAnalyzer";
+import { SummarySection } from "./SummarySection";
 
 interface EditorFormProps {
   cvData: CVData;
@@ -31,22 +32,10 @@ export function EditorForm({ cvData, setCvData, activeSection }: EditorFormProps
         );
       case "summary":
         return (
-          <Card className="glass-card p-6">
-            <h2 className="text-2xl font-semibold mb-4">Professional Summary</h2>
-            <Textarea
-              value={cvData.summary}
-              onChange={(e) => setCvData({ ...cvData, summary: e.target.value })}
-              placeholder="Write a brief professional summary..."
-              className="min-h-[120px]"
-            />
-            <AIAssistant
-              section="summary"
-              currentContent={cvData.summary}
-              onSuggestionApply={(suggestion) =>
-                setCvData({ ...cvData, summary: suggestion })
-              }
-            />
-          </Card>
+          <SummarySection
+            summary={cvData.summary}
+            onUpdate={(value) => setCvData({ ...cvData, summary: value })}
+          />
         );
       case "experience":
         return (

@@ -1,5 +1,4 @@
-import { Card } from "@/components/ui/card";
-import { Input } from "@nextui-org/react";
+import { Card, Input } from "@nextui-org/react";
 import { PersonalInfo } from "@/types/cv";
 
 interface PersonalInfoSectionProps {

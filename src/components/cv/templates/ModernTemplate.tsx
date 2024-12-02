@@ -10,7 +10,7 @@ export function ModernTemplate({ cvData }: TemplateProps) {
   };
 
   return (
-    <div className="bg-background rounded-lg shadow-lg p-8 space-y-6">
+    <div className="bg-background rounded-lg border p-8 space-y-6">
       <div className="border-l-4 border-primary pl-4">
         <h1 className="text-3xl font-bold text-foreground">{cvData.personalInfo.fullName || "Your Name"}</h1>
         <div className=" mt-2 space-y-1">

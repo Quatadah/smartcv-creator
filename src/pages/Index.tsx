@@ -73,7 +73,7 @@ const Index = () => {
               Create Your Professional CV with
               <span className="text-primary block">AI-Powered Tools</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-up">
+            <p className="text-lg -foreground max-w-2xl mx-auto animate-fade-up">
               Build stunning, ATS-friendly resumes in minutes. Let AI help you showcase
               your skills and experience in the best possible way.
             </p>
@@ -101,7 +101,7 @@ const Index = () => {
         <section className="py-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Why Choose SmartCV?</h2>
-            <p className="text-muted-foreground">
+            <p className="-foreground">
               Everything you need to create a standout resume
             </p>
           </div>
@@ -113,7 +113,7 @@ const Index = () => {
               >
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <p className="-foreground">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -123,7 +123,7 @@ const Index = () => {
       <AuthDialog
         isOpen={authDialog.isOpen}
         mode={authDialog.mode}
-        onClose={() => setAuthDialog({ ...authDialog, isOpen: false })}
+        onOpenChange={() => setAuthDialog({ ...authDialog, isOpen: false })}
       />
     </div>
   );

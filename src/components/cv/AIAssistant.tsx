@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Wand2, Sparkles, BarChart } from "lucide-react";
+import { Button, Card, Textarea } from "@nextui-org/react";
 import { AIService } from "@/lib/ai-service";
 import { toast } from "sonner";
+import { Sparkles, Wand2 } from "lucide-react";
 
 interface AIAssistantProps {
   onSuggestionApply: (suggestion: string) => void;
@@ -31,7 +30,7 @@ export function AIAssistant({ onSuggestionApply, section, currentContent }: AIAs
   return (
     <div className="mt-2">
       <Button
-        variant="outline"
+        variant="bordered"
         size="sm"
         className="w-full mb-2"
         onClick={generateSuggestion}
@@ -42,7 +41,7 @@ export function AIAssistant({ onSuggestionApply, section, currentContent }: AIAs
       </Button>
 
       {suggestion && (
-        <Card className="p-4 mt-2 bg-muted/50">
+        <Card className="p-2 bg-muted/50">
           <p className="text-sm mb-2">{suggestion}</p>
           <Button
             size="sm"

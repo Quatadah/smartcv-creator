@@ -10,10 +10,10 @@ export function ElegantTemplate({ cvData }: TemplateProps) {
   };
 
   return (
-    <div className="bg-background rounded-lg shadow-lg p-8 max-w-3xl mx-auto">
+    <div className="bg-background rounded-lg border p-8 max-w-3xl mx-auto">
       <div className="border-b-2 border-primary pb-6 mb-6">
-        <h1 className="text-4xl font-serif text-center mb-4">{cvData.personalInfo.fullName || "Your Name"}</h1>
-        <div className="flex justify-center gap-6 text-sm">
+        <h1 className="text-3xl font-serif text-center mb-4">{cvData.personalInfo.fullName || "Your Name"}</h1>
+        <div className="flex justify-center gap-6 text-xs">
           {cvData.personalInfo.email && (
             <span className="flex items-center">
               <span className="mr-2">✉</span>
@@ -37,26 +37,26 @@ export function ElegantTemplate({ cvData }: TemplateProps) {
 
       {cvData.summary && (
         <div className="mb-8">
-          <h2 className="text-2xl font-serif mb-4 text-primary text-foreground">Professional Summary</h2>
-          <p className="text-foreground/80 leading-relaxed">{cvData.summary}</p>
+          <h2 className="text-xl font-serif mb-4 text-primary text-foreground">Professional Summary</h2>
+          <p className="text-foreground/80 leading-relaxed text-sm">{cvData.summary}</p>
         </div>
       )}
 
       {cvData.experience.some(exp => exp.title || exp.company) && (
         <div className="mb-8">
-          <h2 className="text-2xl font-serif mb-4 text-primary text-foreground">Experience</h2>
+          <h2 className="text-xl font-serif mb-4 text-primary text-foreground">Experience</h2>
           {cvData.experience.map((exp, index) => (
             exp.title || exp.company ? (
               <div key={index} className="mb-6">
                 <div className="flex justify-between items-baseline">
-                  <h3 className="text-xl font-medium text-foreground">{exp.title}</h3>
-                  <span className=" text-sm">
+                  <h3 className="text-lg font-medium text-foreground">{exp.title}</h3>
+                  <span className="text-xs">
                     {exp.startDate && `${formatDate(exp.startDate)} - ${exp.endDate ? formatDate(exp.endDate) : "Present"}`}
                   </span>
                 </div>
-                <p className=" mb-2">{exp.company}</p>
+                <p className="mb-2">{exp.company}</p>
                 {exp.description && (
-                  <p className="text-foreground/80 leading-relaxed">{exp.description}</p>
+                  <p className="mt-2 text-foreground/80 text-sm">{exp.description}</p>
                 )}
               </div>
             ) : null
