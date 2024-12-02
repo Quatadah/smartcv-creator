@@ -37,8 +37,8 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
               label="Employment Period" 
               className="max-w-full"
               value={{
-                start: exp.startDate ? new Date(exp.startDate) : undefined,
-                end: exp.endDate ? new Date(exp.endDate) : undefined
+                start: exp.startDate ? new Date(exp.startDate) : null,
+                end: exp.endDate ? new Date(exp.endDate) : null
               }}
               onChange={(dates) => {
                 if (dates?.start) {

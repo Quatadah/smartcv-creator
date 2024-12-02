@@ -36,8 +36,8 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
               label="Study Period" 
               className="max-w-full"
               value={{
-                start: edu.year ? new Date(edu.year) : undefined,
-                end: edu.year ? new Date(edu.year) : undefined
+                start: edu.year ? new Date(edu.year) : null,
+                end: edu.year ? new Date(edu.year) : null
               }}
               onChange={(dates) => {
                 if (dates?.end) {
