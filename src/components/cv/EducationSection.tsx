@@ -1,4 +1,4 @@
-import { Card, Button, Input, Textarea } from "@nextui-org/react";
+import { Card, Button, Input, Textarea, DateRangePicker } from "@nextui-org/react";
 import { Education } from "@/types/cv";
 
 interface EducationSectionProps {
@@ -31,14 +31,19 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
               className="max-w-full"
             />
           </div>
-          <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mb-4">
-            <Input
-              type="text"
-              label="Year"
-              placeholder="Enter graduation year"
-              value={edu.year}
-              onChange={(e) => onUpdate(index, "year", e.target.value)}
+          <div className="mb-4">
+            <DateRangePicker 
+              label="Study Period" 
               className="max-w-full"
+              value={{
+                start: edu.year,
+                end: edu.year // Since education typically uses just one year, we'll use it for both
+              }}
+              onChange={(dates) => {
+                if (dates?.end) {
+                  onUpdate(index, "year", dates.end);
+                }
+              }}
             />
           </div>
           <Textarea
