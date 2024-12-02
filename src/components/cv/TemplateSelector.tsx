@@ -3,13 +3,13 @@ import { Layout } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface TemplateSelectorProps {
-  template: string;
-  setTemplate: (template: string) => void;
+  currentTemplate: string;
+  onTemplateChange: (template: string) => void;
 }
 
 export function TemplateSelector({
-  template,
-  setTemplate,
+  currentTemplate,
+  onTemplateChange,
 }: TemplateSelectorProps) {
   const templates = [
     { value: "modern", label: "Modern" },
@@ -30,8 +30,8 @@ export function TemplateSelector({
         Templates
       </Button>
       <Select
-        selectedKeys={[template]}
-        onChange={(e) => setTemplate(e.target.value)}
+        selectedKeys={[currentTemplate]}
+        onChange={(e) => onTemplateChange(e.target.value)}
         className="w-[180px]"
         placeholder="Select template"
         variant="bordered"
