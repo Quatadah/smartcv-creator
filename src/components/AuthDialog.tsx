@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Input } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, Button, Input } from "@nextui-org/react";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface AuthDialogProps {
@@ -26,14 +24,12 @@ export const AuthDialog = ({ isOpen, onClose, mode }: AuthDialogProps) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>
-            {mode === 'signin' ? 'Sign In' : 'Create Account'}
-          </DialogTitle>
-        </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalContent>
+        <ModalHeader>
+          {mode === 'signin' ? 'Sign In' : 'Create Account'}
+        </ModalHeader>
+        <form onSubmit={handleSubmit} className="space-y-4 p-6">
           <Input
             type="email"
             label="Email"
@@ -41,6 +37,7 @@ export const AuthDialog = ({ isOpen, onClose, mode }: AuthDialogProps) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             variant="bordered"
+            className="max-w-full"
           />
           <Input
             type="password"
@@ -49,12 +46,13 @@ export const AuthDialog = ({ isOpen, onClose, mode }: AuthDialogProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             variant="bordered"
+            className="max-w-full"
           />
-          <Button type="submit" className="w-full">
+          <Button type="submit" color="primary" className="w-full">
             {mode === 'signin' ? 'Sign In' : 'Sign Up'}
           </Button>
         </form>
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   );
 }

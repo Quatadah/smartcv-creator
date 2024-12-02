@@ -1,8 +1,6 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, Button, Input, Textarea } from "@nextui-org/react";
 import { Experience } from "@/types/cv";
 import { AIAssistant } from "./AIAssistant";
-import { Input, Textarea } from "@nextui-org/react";
 
 interface ExperienceSectionProps {
   experience: Experience[];
@@ -12,7 +10,7 @@ interface ExperienceSectionProps {
 
 export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSectionProps) {
   return (
-    <Card className="glass-card p-6">
+    <Card className="p-6">
       <h2 className="text-2xl font-semibold mb-4">Work Experience</h2>
       {experience.map((exp, index) => (
         <div key={index} className="mb-6">
@@ -74,7 +72,7 @@ export function ExperienceSection({ experience, onUpdate, onAdd }: ExperienceSec
           />
         </div>
       ))}
-      <Button onClick={onAdd} variant="outline" className="w-full">
+      <Button onClick={onAdd} variant="bordered" className="w-full">
         Add Experience
       </Button>
     </Card>

@@ -1,7 +1,5 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, Button, Input, Textarea } from "@nextui-org/react";
 import { Education } from "@/types/cv";
-import { Input, Textarea } from "@nextui-org/react";
 
 interface EducationSectionProps {
   education: Education[];
@@ -11,7 +9,7 @@ interface EducationSectionProps {
 
 export function EducationSection({ education, onUpdate, onAdd }: EducationSectionProps) {
   return (
-    <Card className="glass-card p-6">
+    <Card className="p-6">
       <h2 className="text-2xl font-semibold mb-4">Education</h2>
       {education.map((edu, index) => (
         <div key={index} className="mb-6">
@@ -57,7 +55,7 @@ export function EducationSection({ education, onUpdate, onAdd }: EducationSectio
           />
         </div>
       ))}
-      <Button onClick={onAdd} variant="outline" className="w-full">
+      <Button onClick={onAdd} variant="bordered" className="w-full">
         Add Education
       </Button>
     </Card>

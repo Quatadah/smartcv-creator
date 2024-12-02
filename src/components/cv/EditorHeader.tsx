@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@nextui-org/react";
 import { ArrowLeft, Download, Wand2, Save } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -7,7 +7,7 @@ import { PDFExport } from "@/components/cv/PDFExport";
 import { sampleCVData } from "@/utils/sampleCVData";
 import { TemplateSelector } from "@/components/cv/TemplateSelector";
 import { CVData } from "@/types/cv";
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@nextui-org/react";
 
 interface EditorHeaderProps {
   showConfetti: boolean;
@@ -71,17 +71,17 @@ export function EditorHeader({
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <Link to="/">
-                <Button variant="ghost" className="hover-scale">
+                <Button variant="bordered" className="hover-scale">
                   <ArrowLeft className="mr-2 h-4 w-4" /> Back
                 </Button>
               </Link>
               <TemplateSelector currentTemplate={template} onTemplateChange={setTemplate} />
             </div>
             <div className="flex gap-2">
-              <Button onClick={handleAutoFill} variant="outline" className="hover-scale">
+              <Button onClick={handleAutoFill} variant="bordered" className="hover-scale">
                 <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
               </Button>
-              <Button onClick={handleSave} variant="outline" className="hover-scale">
+              <Button onClick={handleSave} variant="bordered" className="hover-scale">
                 <Save className="mr-2 h-4 w-4" /> Save Progress
               </Button>
               <PDFExport previewRef={previewRef} />
