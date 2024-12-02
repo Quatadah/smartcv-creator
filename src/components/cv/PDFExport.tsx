@@ -44,7 +44,8 @@ export function PDFExport({ previewRef }: PDFExportProps) {
 
   return (
     <Button
-      variant="bordered"
+      color="primary"
+      variant="shadow"
       onClick={exportToPDF}
       isLoading={isExporting}
       startContent={<Download size={16} />}
