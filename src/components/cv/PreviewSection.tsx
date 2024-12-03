@@ -1,10 +1,10 @@
 import { CVData } from "@/types/cv";
-import { ModernTemplate } from "./templates/ModernTemplate";
-import { MinimalTemplate } from "./templates/MinimalTemplate";
 import { CompactTemplate } from "./templates/CompactTemplate";
-import { ElegantTemplate } from "./templates/ElegantTemplate";
-import { ProfessionalTemplate } from "./templates/ProfessionalTemplate";
 import { CreativeTemplate } from "./templates/CreativeTemplate";
+import { ElegantTemplate } from "./templates/ElegantTemplate";
+import { MinimalTemplate } from "./templates/MinimalTemplate";
+import { ModernTemplate } from "./templates/ModernTemplate";
+import { ProfessionalTemplate } from "./templates/ProfessionalTemplate";
 
 interface PreviewSectionProps {
   cvData: CVData;

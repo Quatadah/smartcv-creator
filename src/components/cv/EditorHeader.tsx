@@ -1,13 +1,13 @@
-import { Button } from "@nextui-org/react";
-import { ArrowLeft, Download, Wand2, Save, LogOut, Home } from "lucide-react";
-import { Link } from "react-router-dom";
-import { toast } from "sonner";
 import { Confetti } from "@/components/cv/Confetti";
 import { PDFExport } from "@/components/cv/PDFExport";
-import { sampleCVData } from "@/utils/sampleCVData";
 import { TemplateSelector } from "@/components/cv/TemplateSelector";
-import { CVData } from "@/types/cv";
 import { useAuth } from "@/contexts/AuthContext";
+import { CVData } from "@/types/cv";
+import { sampleCVData } from "@/utils/sampleCVData";
+import { Button } from "@nextui-org/react";
+import { ArrowLeft, Home, LogOut, Save, Wand2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 interface EditorHeaderProps {
   showConfetti: boolean;
