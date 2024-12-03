@@ -7,6 +7,7 @@ import { CVData } from "@/types/cv";
 import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Json } from "@/integrations/supabase/types";
 
 const Editor = () => {
   const location = useLocation();
@@ -36,14 +37,26 @@ const Editor = () => {
       ? `${cvData.personalInfo.fullName}'s Resume` 
       : "Untitled Resume";
 
+    // Get the current user
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      toast.error('You must be logged in to save a resume');
+      return;
+    }
+
+    const resumeData = {
+      title,
+      content: cvData as unknown as Json,
+      template,
+      user_id: user.id,
+    };
+
     if (resumeId) {
       // Update existing resume
       const { error } = await supabase
         .from('resumes')
         .update({
-          title,
-          content: cvData,
-          template,
+          ...resumeData,
           updated_at: new Date().toISOString(),
         })
         .eq('id', resumeId);
@@ -57,11 +70,7 @@ const Editor = () => {
       // Create new resume
       const { error } = await supabase
         .from('resumes')
-        .insert({
-          title,
-          content: cvData,
-          template,
-        });
+        .insert(resumeData);
 
       if (error) {
         toast.error('Error creating resume');
