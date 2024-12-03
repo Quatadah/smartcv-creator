@@ -1,13 +1,17 @@
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@nextui-org/react";
 import { EditorForm } from "@/components/cv/EditorForm";
-import { EditorHeader } from "@/components/cv/EditorHeader";
 import { PreviewSection } from "@/components/cv/PreviewSection";
-import { Stepper } from "@/components/cv/Stepper";
-import { Button } from "@/components/ui/button";
+import { EditorHeader } from "@/components/cv/EditorHeader";
 import { CVData } from "@/types/cv";
-import { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Editor = () => {
-  const [cvData, setCvData] = useState<CVData>({
+  const location = useLocation();
+  const navigate = useNavigate();
+  const initialData = location.state?.resumeData?.content || {
     personalInfo: {
       fullName: "",
       email: "",
@@ -15,42 +19,58 @@ const Editor = () => {
       location: "",
     },
     summary: "",
-    experience: [{
-      title: "",
-      company: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-    }],
-    education: [{
-      degree: "",
-      institution: "",
-      year: "",
-      description: "",
-    }],
-    skills: [""],
-  });
+    experience: [],
+    education: [],
+    skills: [],
+  };
 
-  const [template, setTemplate] = useState("modern");
+  const [cvData, setCvData] = useState<CVData>(initialData);
+  const [template, setTemplate] = useState(location.state?.resumeData?.template || "modern");
   const [showConfetti, setShowConfetti] = useState(false);
   const [activeSection, setActiveSection] = useState("personal");
   const previewRef = useRef<HTMLDivElement>(null);
 
-  const sections = [
-    { id: "personal", label: "Personal Info", step: 1 },
-    { id: "summary", label: "Summary", step: 2 },
-    { id: "experience", label: "Experience", step: 3 },
-    { id: "education", label: "Education", step: 4 },
-    { id: "skills", label: "Skills", step: 5 },
-  ];
+  const saveResume = async () => {
+    const resumeId = location.state?.resumeData?.id;
+    const title = cvData.personalInfo.fullName 
+      ? `${cvData.personalInfo.fullName}'s Resume` 
+      : "Untitled Resume";
 
-  const handleNavigate = (direction: 'prev' | 'next') => {
-    const currentIndex = sections.findIndex(section => section.id === activeSection);
-    if (direction === 'next' && currentIndex < sections.length - 1) {
-      setActiveSection(sections[currentIndex + 1].id);
-    } else if (direction === 'prev' && currentIndex > 0) {
-      setActiveSection(sections[currentIndex - 1].id);
+    if (resumeId) {
+      // Update existing resume
+      const { error } = await supabase
+        .from('resumes')
+        .update({
+          title,
+          content: cvData,
+          template,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', resumeId);
+
+      if (error) {
+        toast.error('Error updating resume');
+        return;
+      }
+      toast.success('Resume updated successfully');
+    } else {
+      // Create new resume
+      const { error } = await supabase
+        .from('resumes')
+        .insert({
+          title,
+          content: cvData,
+          template,
+        });
+
+      if (error) {
+        toast.error('Error creating resume');
+        return;
+      }
+      toast.success('Resume created successfully');
     }
+
+    navigate('/home');
   };
 
   return (
@@ -64,44 +84,41 @@ const Editor = () => {
         template={template}
         setTemplate={setTemplate}
       />
-
       <div className="container mx-auto px-4 py-8">
-        <Stepper 
-          sections={sections}
-          activeSection={activeSection}
-          onSectionChange={setActiveSection}
-        />
-
-        <div className="grid grid-cols-9 gap-8 relative">
-          {/* Main content area */}
-          <div className="col-span-5">
-            <EditorForm 
-              cvData={cvData} 
-              setCvData={setCvData} 
-              activeSection={activeSection} 
-            />
-            
-            {/* Navigation buttons */}
-            <div className="flex justify-between mt-6">
-              <Button
-                onClick={() => handleNavigate('prev')}
-                disabled={activeSection === sections[0].id}
-                variant="secondary"
-              >
-                Previous
-              </Button>
-              <Button
-                onClick={() => handleNavigate('next')}
-                disabled={activeSection === sections[sections.length - 1].id}
-              >
-                Next
-              </Button>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <div className="flex gap-2 mb-6">
+              {["personal", "summary", "experience", "education", "skills"].map(
+                (section) => (
+                  <Button
+                    key={section}
+                    variant={activeSection === section ? "solid" : "bordered"}
+                    onClick={() => setActiveSection(section)}
+                    className="capitalize"
+                  >
+                    {section}
+                  </Button>
+                )
+              )}
             </div>
+            <EditorForm
+              cvData={cvData}
+              setCvData={setCvData}
+              activeSection={activeSection}
+            />
           </div>
-
-          <div className="col-span-4" ref={previewRef}>
+          <div ref={previewRef}>
             <PreviewSection cvData={cvData} template={template} />
           </div>
+        </div>
+        <div className="fixed bottom-8 right-8">
+          <Button
+            color="primary"
+            size="lg"
+            onClick={saveResume}
+          >
+            Save Resume
+          </Button>
         </div>
       </div>
     </div>
