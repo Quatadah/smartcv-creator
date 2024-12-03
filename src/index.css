@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --gradient: #3d3393;
+
+    --background: 262 31.849999999999998% 3.12%;
+    --foreground: 262 4.9% 96.95%;
+
+    --muted: 262 24.5% 11.700000000000001%;
+    --muted-foreground: 262 4.9% 53.9%;
+
+    --popover: 262 55.2% 5.07%;
+    --popover-foreground: 262 4.9% 96.95%;
+
+    --card: 262 55.2% 5.07%;
+    --card-foreground: 262 4.9% 96.95%;
+
+    --border: 262 24.5% 11.700000000000001%;
+    --input: 262 24.5% 11.700000000000001%;
+
+    --primary: 262 49% 39%;
+    --primary-foreground: 262 4.9% 96.95%;
+
+    --secondary: 262 24.5% 11.700000000000001%;
+    --secondary-foreground: 262 4.9% 96.95%;
+
+    --accent: 262 24.5% 11.700000000000001%;
+    --accent-foreground: 262 4.9% 96.95%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 262 4.9% 96.95%;
+
+    --ring: 262 49% 39%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-['Inter'];
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-background/80 backdrop-blur-md border shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .button-hover {
+    @apply transition-all duration-300 hover:brightness-110;
+  }
+}
+
+.bg-gradient-light {
+  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+}
+
+.dark .bg-gradient-light {
+  background: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(217 32% 17%) 100%);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out forwards;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-primary/40;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/60;
+}
+
