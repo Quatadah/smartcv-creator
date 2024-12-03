@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (email === 'admin@admin.com' && password === 'password') {
       setIsAuthenticated(true);
       toast.success("Successfully logged in!");
-      navigate('/editor');
+      navigate('/home');
     } else {
       toast.error("Invalid credentials");
     }
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (email === 'admin@admin.com' && password === 'password') {
       setIsAuthenticated(true);
       toast.success("Successfully signed up!");
-      navigate('/editor');
+      navigate('/home');
     } else {
       toast.error("Invalid credentials");
     }
