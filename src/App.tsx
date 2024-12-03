@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { NextUIProvider } from "@nextui-org/react";
 import Index from "./pages/Index";
 import Editor from "./pages/Editor";
 import Home from "./pages/Home";
