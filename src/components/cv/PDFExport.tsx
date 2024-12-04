@@ -42,6 +42,13 @@ export function PDFExport({ previewRef }: PDFExportProps) {
       element.style.height = 'auto';
       element.style.backgroundColor = 'white';
       element.style.padding = '40px';
+      element.style.color = '#000000';
+
+      // Force dark text for PDF export
+      const textElements = element.querySelectorAll('*');
+      textElements.forEach((el) => {
+        (el as HTMLElement).style.color = '#000000';
+      });
 
       // Create canvas with higher scale for better quality
       const canvas = await html2canvas(element, {
