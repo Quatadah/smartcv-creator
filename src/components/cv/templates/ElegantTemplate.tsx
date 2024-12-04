@@ -12,6 +12,15 @@ export function ElegantTemplate({ cvData }: TemplateProps) {
   return (
     <div className="bg-background rounded-lg border p-8 max-w-3xl mx-auto">
       <div className="border-b-2 border-primary pb-6 mb-6">
+        <div className="flex items-center justify-center gap-6 mb-4">
+          {cvData.personalInfo.photo && (
+            <img 
+              src={cvData.personalInfo.photo} 
+              alt="Profile"
+              className="w-28 h-28 rounded-full object-cover border-2 border-primary/20"
+            />
+          )}
+        </div>
         <h1 className="text-3xl font-serif text-center mb-4">{cvData.personalInfo.fullName || "Your Name"}</h1>
         <div className="flex justify-center gap-6 text-xs">
           {cvData.personalInfo.email && (

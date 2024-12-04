@@ -13,32 +13,44 @@ export function CreativeTemplate({ cvData }: TemplateProps) {
     <div className="bg-background rounded-lg border p-8 max-w-3xl mx-auto">
       <div className="relative mb-12">
         <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full" />
-        <div className="relative">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            {cvData.personalInfo.fullName || "Your Name"}
-          </h1>
-          {cvData.personalInfo.email && (
-            <h2 className="text-xl mt-2 text-muted-foreground font-light">{cvData.personalInfo.email}</h2>
+        <div className="relative flex items-start gap-6">
+          {cvData.personalInfo.photo && (
+            <div className="relative">
+              <div className="absolute -top-3 -left-3 w-32 h-32 bg-primary/5 rounded-full animate-pulse" />
+              <img 
+                src={cvData.personalInfo.photo} 
+                alt="Profile"
+                className="w-28 h-28 rounded-full object-cover border-2 border-primary/20 relative"
+              />
+            </div>
           )}
-          <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
+          <div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              {cvData.personalInfo.fullName || "Your Name"}
+            </h1>
             {cvData.personalInfo.email && (
-              <div className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-primary rounded-full" />
-                {cvData.personalInfo.email}
-              </div>
+              <h2 className="text-xl mt-2 text-muted-foreground font-light">{cvData.personalInfo.email}</h2>
             )}
-            {cvData.personalInfo.phone && (
-              <div className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-primary rounded-full" />
-                {cvData.personalInfo.phone}
-              </div>
-            )}
-            {cvData.personalInfo.location && (
-              <div className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-primary rounded-full" />
-                {cvData.personalInfo.location}
-              </div>
-            )}
+            <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
+              {cvData.personalInfo.email && (
+                <div className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full" />
+                  {cvData.personalInfo.email}
+                </div>
+              )}
+              {cvData.personalInfo.phone && (
+                <div className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full" />
+                  {cvData.personalInfo.phone}
+                </div>
+              )}
+              {cvData.personalInfo.location && (
+                <div className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full" />
+                  {cvData.personalInfo.location}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

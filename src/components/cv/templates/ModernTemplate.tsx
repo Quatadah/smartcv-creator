@@ -11,12 +11,21 @@ export function ModernTemplate({ cvData }: TemplateProps) {
 
   return (
     <div className="bg-background rounded-lg border p-8 space-y-6">
-      <div className="border-l-4 border-primary pl-4">
-        <h1 className="text-3xl font-bold text-foreground">{cvData.personalInfo.fullName || "Your Name"}</h1>
-        <div className=" mt-2 space-y-1">
-          {cvData.personalInfo.email && <p>{cvData.personalInfo.email}</p>}
-          {cvData.personalInfo.phone && <p>{cvData.personalInfo.phone}</p>}
-          {cvData.personalInfo.location && <p>{cvData.personalInfo.location}</p>}
+      <div className="flex items-start gap-6">
+        {cvData.personalInfo.photo && (
+          <img 
+            src={cvData.personalInfo.photo} 
+            alt="Profile"
+            className="w-24 h-24 rounded-full object-cover border-2 border-primary/20"
+          />
+        )}
+        <div className="border-l-4 border-primary pl-4 flex-1">
+          <h1 className="text-3xl font-bold text-foreground">{cvData.personalInfo.fullName || "Your Name"}</h1>
+          <div className="mt-2 space-y-1">
+            {cvData.personalInfo.email && <p>{cvData.personalInfo.email}</p>}
+            {cvData.personalInfo.phone && <p>{cvData.personalInfo.phone}</p>}
+            {cvData.personalInfo.location && <p>{cvData.personalInfo.location}</p>}
+          </div>
         </div>
       </div>
 

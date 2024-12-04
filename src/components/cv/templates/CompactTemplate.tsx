@@ -12,15 +12,24 @@ export function CompactTemplate({ cvData }: TemplateProps) {
   return (
     <div className="bg-background rounded-lg border p-8 space-y-4">
       <div className="flex justify-between items-start border-b pb-4">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">{cvData.personalInfo.fullName || "Your Name"}</h1>
-          <div className=" text-sm space-y-1">
-            {cvData.personalInfo.email && <p>{cvData.personalInfo.email}</p>}
-            {cvData.personalInfo.phone && <p>{cvData.personalInfo.phone}</p>}
+        <div className="flex items-center gap-4">
+          {cvData.personalInfo.photo && (
+            <img 
+              src={cvData.personalInfo.photo} 
+              alt="Profile"
+              className="w-20 h-20 rounded-full object-cover border border-border"
+            />
+          )}
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">{cvData.personalInfo.fullName || "Your Name"}</h1>
+            <div className="text-sm space-y-1">
+              {cvData.personalInfo.email && <p>{cvData.personalInfo.email}</p>}
+              {cvData.personalInfo.phone && <p>{cvData.personalInfo.phone}</p>}
+            </div>
           </div>
         </div>
         {cvData.personalInfo.location && (
-          <div className="text-right  text-sm">
+          <div className="text-right text-sm">
             {cvData.personalInfo.location}
           </div>
         )}

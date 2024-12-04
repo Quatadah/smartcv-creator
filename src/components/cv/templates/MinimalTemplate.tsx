@@ -12,8 +12,19 @@ export function MinimalTemplate({ cvData }: TemplateProps) {
   return (
     <div className="bg-background rounded-lg border p-8 max-w-3xl mx-auto space-y-6">
       <div className="text-center pb-6">
-        <h1 className="text-4xl font-light tracking-wide text-foreground">{cvData.personalInfo.fullName || "Your Name"}</h1>
-        <div className=" mt-2 flex items-center justify-center gap-4 text-sm">
+        {cvData.personalInfo.photo && (
+          <div className="mb-4">
+            <img 
+              src={cvData.personalInfo.photo} 
+              alt="Profile"
+              className="w-32 h-32 rounded-full object-cover mx-auto border-2 border-primary/10"
+            />
+          </div>
+        )}
+        <h1 className="text-4xl font-light tracking-wide text-foreground">
+          {cvData.personalInfo.fullName || "Your Name"}
+        </h1>
+        <div className="mt-2 flex items-center justify-center gap-4 text-sm">
           {cvData.personalInfo.email && <span>{cvData.personalInfo.email}</span>}
           {cvData.personalInfo.phone && <span>•</span>}
           {cvData.personalInfo.phone && <span>{cvData.personalInfo.phone}</span>}

@@ -13,11 +13,22 @@ export function ProfessionalTemplate({ cvData }: TemplateProps) {
     <div className="bg-background rounded-lg border p-8 max-w-3xl mx-auto">
       <div className="flex justify-between items-start border-b border-primary/20 pb-6">
         <div className="space-y-2">
-          <h1 className="text-2xl font-semibold text-primary">{cvData.personalInfo.fullName || "Your Name"}</h1>
-          <div className="text-xs space-y-1 text-muted-foreground">
-            {cvData.personalInfo.email && <div>{cvData.personalInfo.email}</div>}
-            {cvData.personalInfo.phone && <div>{cvData.personalInfo.phone}</div>}
-            {cvData.personalInfo.location && <div>{cvData.personalInfo.location}</div>}
+          <div className="flex items-center gap-4">
+            {cvData.personalInfo.photo && (
+              <img 
+                src={cvData.personalInfo.photo} 
+                alt="Profile"
+                className="w-24 h-24 rounded-full object-cover border-2 border-primary/20"
+              />
+            )}
+            <div>
+              <h1 className="text-2xl font-semibold text-primary">{cvData.personalInfo.fullName || "Your Name"}</h1>
+              <div className="text-xs space-y-1 text-muted-foreground">
+                {cvData.personalInfo.email && <div>{cvData.personalInfo.email}</div>}
+                {cvData.personalInfo.phone && <div>{cvData.personalInfo.phone}</div>}
+                {cvData.personalInfo.location && <div>{cvData.personalInfo.location}</div>}
+              </div>
+            </div>
           </div>
         </div>
       </div>
