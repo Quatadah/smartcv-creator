@@ -3,6 +3,7 @@ export interface PersonalInfo {
   email: string;
   phone: string;
   location: string;
+  photo?: string;
 }
 
 export interface Experience {

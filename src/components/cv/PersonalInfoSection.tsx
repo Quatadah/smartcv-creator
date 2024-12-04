@@ -1,5 +1,6 @@
 import { Card, Input } from "@nextui-org/react";
 import { PersonalInfo } from "@/types/cv";
+import { ImageUpload } from "./ImageUpload";
 
 interface PersonalInfoSectionProps {
   personalInfo: PersonalInfo;
@@ -10,6 +11,12 @@ export function PersonalInfoSection({ personalInfo, onUpdate }: PersonalInfoSect
   return (
     <Card className="glass-card p-6">
       <h2 className="text-2xl font-semibold mb-4">Personal Information</h2>
+      <div className="flex flex-col items-center mb-6">
+        <ImageUpload
+          currentImage={personalInfo.photo}
+          onImageUpload={(url) => onUpdate("photo", url)}
+        />
+      </div>
       <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
         <Input
           type="text"
