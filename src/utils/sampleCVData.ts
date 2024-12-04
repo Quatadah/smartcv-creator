@@ -1,49 +1,52 @@
-export const sampleCVData = {
+import { CVData } from "@/types/cv";
+
+export const sampleCVData: CVData = {
   personalInfo: {
     fullName: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
+    email: "john@example.com",
+    phone: "+1 234 567 890",
+    location: "New York, USA",
   },
-  summary: "Results-driven software engineer with 5+ years of experience in developing scalable web applications. Proficient in React, TypeScript, and Node.js. Passionate about creating intuitive user experiences and implementing best practices in software development.",
+  summary: "Experienced professional with a track record of success in...",
   experience: [
     {
-      title: "Senior Software Engineer",
-      company: "Tech Solutions Inc.",
-      startDate: "2021-01",
-      endDate: "2023-12",
-      description: "Led a team of 5 developers in building a cloud-based project management tool. Implemented CI/CD pipelines and reduced deployment time by 40%.",
-    },
-    {
-      title: "Software Developer",
-      company: "Digital Innovations LLC",
-      startDate: "2018-06",
-      endDate: "2020-12",
-      description: "Developed and maintained multiple client-facing web applications using React and TypeScript. Improved application performance by 60% through code optimization.",
+      title: "Senior Developer",
+      company: "Tech Corp",
+      startDate: "2020-01-01",
+      endDate: "2023-12-31",
+      description: "Led development team and implemented key features...",
     },
   ],
   education: [
     {
-      degree: "Master of Science in Computer Science",
-      institution: "Stanford University",
-      year: "2018",
-      description: "Specialized in Artificial Intelligence and Machine Learning. Published two papers in international conferences.",
-    },
-    {
-      degree: "Bachelor of Science in Software Engineering",
-      institution: "University of California, Berkeley",
-      year: "2016",
-      description: "Graduated with honors. Led the university's programming club.",
+      degree: "Bachelor of Science in Computer Science",
+      institution: "University of Technology",
+      year: "2019",
+      description: "Graduated with honors, specialized in software engineering",
     },
   ],
   skills: [
+    "JavaScript",
     "React",
-    "TypeScript",
     "Node.js",
-    "Python",
-    "AWS",
-    "Docker",
-    "Git",
-    "Agile Methodologies",
+    "TypeScript",
   ],
+  languages: [
+    {
+      name: "English",
+      proficiency: "Native"
+    },
+    {
+      name: "Spanish",
+      proficiency: "Intermediate"
+    }
+  ],
+  certificates: [
+    {
+      name: "AWS Certified Developer",
+      issuer: "Amazon Web Services",
+      date: "2022-06-15",
+      description: "Advanced cloud development certification"
+    }
+  ]
 };
