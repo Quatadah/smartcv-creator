@@ -8,6 +8,8 @@ import { EducationSection } from "./EducationSection";
 import { SkillsSection } from "./SkillsSection";
 import { CVAnalyzer } from "./CVAnalyzer";
 import { SummarySection } from "./SummarySection";
+import { LanguagesSection } from "./LanguagesSection";
+import { CertificatesSection } from "./CertificatesSection";
 
 interface EditorFormProps {
   cvData: CVData;
@@ -90,6 +92,46 @@ export function EditorForm({ cvData, setCvData, activeSection }: EditorFormProps
               setCvData({
                 ...cvData,
                 skills: [...cvData.skills, ""],
+              });
+            }}
+          />
+        );
+      case "languages":
+        return (
+          <LanguagesSection
+            languages={cvData.languages}
+            onUpdate={(index, field, value) => {
+              const newLanguages = [...cvData.languages];
+              newLanguages[index] = { ...newLanguages[index], [field]: value };
+              setCvData({ ...cvData, languages: newLanguages });
+            }}
+            onAdd={() => {
+              setCvData({
+                ...cvData,
+                languages: [
+                  ...cvData.languages,
+                  { name: "", proficiency: "" },
+                ],
+              });
+            }}
+          />
+        );
+      case "certificates":
+        return (
+          <CertificatesSection
+            certificates={cvData.certificates}
+            onUpdate={(index, field, value) => {
+              const newCertificates = [...cvData.certificates];
+              newCertificates[index] = { ...newCertificates[index], [field]: value };
+              setCvData({ ...cvData, certificates: newCertificates });
+            }}
+            onAdd={() => {
+              setCvData({
+                ...cvData,
+                certificates: [
+                  ...cvData.certificates,
+                  { name: "", issuer: "", date: "", description: "" },
+                ],
               });
             }}
           />

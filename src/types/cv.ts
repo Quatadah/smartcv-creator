@@ -25,10 +25,24 @@ export interface Education {
   description: string;
 }
 
+export interface Language {
+  name: string;
+  proficiency: string;
+}
+
+export interface Certificate {
+  name: string;
+  issuer: string;
+  date: string;
+  description?: string;
+}
+
 export interface CVData {
   personalInfo: PersonalInfo;
   summary: string;
   experience: Experience[];
   education: Education[];
   skills: string[];
+  languages: Language[];
+  certificates: Certificate[];
 }
