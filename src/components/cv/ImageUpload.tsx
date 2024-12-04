@@ -12,50 +12,46 @@ interface ImageUploadProps {
 export function ImageUpload({ currentImage, onImageUpload }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
 
-  const uploadImage = async (file: File) => {
-    try {
-      setIsUploading(true);
-      
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `profile-photos/${fileName}`;
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-      const { error: uploadError } = await supabase.storage
-        .from('cv-images')
+    // Check file size (5MB limit)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File size must be less than 5MB");
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError, data } = await supabase.storage
+        .from("cv-images")
         .upload(filePath, file);
 
       if (uploadError) {
         throw uploadError;
       }
 
-      const { data: { publicUrl } } = supabase.storage
-        .from('cv-images')
-        .getPublicUrl(filePath);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("cv-images").getPublicUrl(filePath);
 
       onImageUpload(publicUrl);
-      toast.success('Profile photo uploaded successfully');
+      toast.success("Image uploaded successfully");
     } catch (error) {
-      toast.error('Error uploading image');
-      console.error('Error uploading image:', error);
+      toast.error("Error uploading image");
+      console.error("Error uploading image:", error);
     } finally {
       setIsUploading(false);
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        toast.error('File size should be less than 5MB');
-        return;
-      }
-      uploadImage(file);
-    }
-  };
-
-  const removeImage = () => {
-    onImageUpload('');
-    toast.success('Profile photo removed');
+  const handleRemoveImage = () => {
+    onImageUpload("");
   };
 
   return (
@@ -69,40 +65,39 @@ export function ImageUpload({ currentImage, onImageUpload }: ImageUploadProps) {
           />
           <Button
             isIconOnly
-            size="sm"
             color="danger"
             variant="flat"
+            size="sm"
             className="absolute -top-2 -right-2"
-            onClick={removeImage}
+            onClick={handleRemoveImage}
           >
             <X size={16} />
           </Button>
         </div>
       ) : (
-        <div className="w-32 h-32 rounded-full bg-muted flex items-center justify-center">
-          <Upload className="w-8 h-8 text-muted-foreground" />
+        <div className="w-32 h-32 rounded-full bg-default-100 flex items-center justify-center">
+          <Upload className="w-8 h-8 text-default-500" />
         </div>
       )}
-      
-      <div className="flex gap-2">
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileUpload}
+        className="hidden"
+        id="image-upload"
+        disabled={isUploading}
+      />
+      <label htmlFor="image-upload">
         <Button
-          as="label"
+          as="span"
           color="primary"
           variant="flat"
-          size="sm"
           isLoading={isUploading}
           className="cursor-pointer"
         >
-          {currentImage ? 'Change Photo' : 'Upload Photo'}
-          <input
-            type="file"
-            className="hidden"
-            accept="image/*"
-            onChange={handleFileChange}
-            disabled={isUploading}
-          />
+          {currentImage ? "Change Photo" : "Upload Photo"}
         </Button>
-      </div>
+      </label>
     </div>
   );
 }
