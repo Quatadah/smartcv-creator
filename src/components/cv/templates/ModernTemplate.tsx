@@ -36,7 +36,7 @@ export function ModernTemplate({ cvData }: TemplateProps) {
         </div>
       )}
 
-      {cvData.experience.some(exp => exp.title || exp.company) && (
+      {cvData.experience && cvData.experience.some(exp => exp.title || exp.company) && (
         <div className="mt-4">
           <h2 className="text-sm font-semibold mb-2">Work Experience</h2>
           {cvData.experience.map((exp, index) => (
@@ -59,7 +59,7 @@ export function ModernTemplate({ cvData }: TemplateProps) {
       )}
 
       <div className="grid grid-cols-2 gap-4 mt-4">
-        {cvData.education.some(edu => edu.degree || edu.institution) && (
+        {cvData.education && cvData.education.some(edu => edu.degree || edu.institution) && (
           <div>
             <h2 className="text-sm font-semibold mb-2">Education</h2>
             {cvData.education.map((edu, index) => (
@@ -75,7 +75,7 @@ export function ModernTemplate({ cvData }: TemplateProps) {
           </div>
         )}
 
-        {cvData.skills.some(skill => skill) && (
+        {cvData.skills && cvData.skills.some(skill => skill) && (
           <div>
             <h2 className="text-sm font-semibold mb-2">Skills</h2>
             <div className="flex flex-wrap gap-1.5">
@@ -94,7 +94,7 @@ export function ModernTemplate({ cvData }: TemplateProps) {
         )}
       </div>
 
-      {cvData.languages.some(lang => lang.name) && (
+      {cvData.languages && cvData.languages.some(lang => lang.name) && (
         <div className="mt-4">
           <h2 className="text-sm font-semibold mb-2">Languages</h2>
           <div className="grid grid-cols-2 gap-2">
@@ -110,7 +110,7 @@ export function ModernTemplate({ cvData }: TemplateProps) {
         </div>
       )}
 
-      {cvData.certificates.some(cert => cert.name) && (
+      {cvData.certificates && cvData.certificates.some(cert => cert.name) && (
         <div className="mt-4">
           <h2 className="text-sm font-semibold mb-2">Certificates</h2>
           {cvData.certificates.map((cert, index) => (
