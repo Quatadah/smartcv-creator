@@ -96,6 +96,46 @@ export function ProfessionalTemplate({ cvData }: TemplateProps) {
           </div>
         </div>
       )}
+
+      {cvData.languages.some(lang => lang.name) && (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-primary mb-2">Languages</h2>
+          <div className="grid grid-cols-2 gap-2">
+            {cvData.languages.map((lang, index) => (
+              lang.name ? (
+                <div key={index} className="text-sm">
+                  <span className="font-medium">{lang.name}</span>
+                  {lang.proficiency && (
+                    <span className="ml-2 text-muted-foreground">- {lang.proficiency}</span>
+                  )}
+                </div>
+              ) : null
+            ))}
+          </div>
+        </div>
+      )}
+
+      {cvData.certificates.some(cert => cert.name) && (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-primary mb-4">Certificates</h2>
+          <div className="space-y-4">
+            {cvData.certificates.map((cert, index) => (
+              cert.name ? (
+                <div key={index} className="border-l-2 border-primary/20 pl-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-medium">{cert.name}</h3>
+                      <p className="text-muted-foreground">{cert.issuer}</p>
+                    </div>
+                    {cert.date && <div className="text-sm text-muted-foreground">{formatDate(cert.date)}</div>}
+                  </div>
+                  {cert.description && <p className="mt-2 text-sm">{cert.description}</p>}
+                </div>
+              ) : null
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

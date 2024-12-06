@@ -109,7 +109,45 @@ export function ElegantTemplate({ cvData }: TemplateProps) {
             </div>
           </div>
         )}
+
+        {cvData.languages.some(lang => lang.name) && (
+          <div>
+            <h2 className="text-2xl font-serif mb-4 text-primary">Languages</h2>
+            <div className="space-y-2">
+              {cvData.languages.map((lang, index) => (
+                lang.name ? (
+                  <div key={index} className="text-sm">
+                    <span className="font-medium">{lang.name}</span>
+                    {lang.proficiency && <span className="ml-2 opacity-80">- {lang.proficiency}</span>}
+                  </div>
+                ) : null
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+
+      {cvData.certificates.some(cert => cert.name) && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-serif mb-4 text-primary">Certificates</h2>
+          <div className="space-y-4">
+            {cvData.certificates.map((cert, index) => (
+              cert.name ? (
+                <div key={index}>
+                  <div className="flex justify-between">
+                    <div>
+                      <h3 className="font-medium text-sm">{cert.name}</h3>
+                      <p className="text-sm opacity-80">{cert.issuer}</p>
+                    </div>
+                    {cert.date && <p className="text-sm">{formatDate(cert.date)}</p>}
+                  </div>
+                  {cert.description && <p className="mt-1 text-sm opacity-80">{cert.description}</p>}
+                </div>
+              ) : null
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

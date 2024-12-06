@@ -98,6 +98,42 @@ export function MinimalTemplate({ cvData }: TemplateProps) {
           </div>
         </div>
       )}
+
+      {cvData.languages.some(lang => lang.name) && (
+        <div className="border-t border-border pt-6">
+          <h2 className="text-lg uppercase tracking-wider mb-4 font-light text-primary">Languages</h2>
+          <div className="grid grid-cols-2 gap-2">
+            {cvData.languages.map((lang, index) => (
+              lang.name ? (
+                <div key={index} className="text-sm">
+                  <span className="font-medium">{lang.name}</span>
+                  {lang.proficiency && <span className="ml-2">- {lang.proficiency}</span>}
+                </div>
+              ) : null
+            ))}
+          </div>
+        </div>
+      )}
+
+      {cvData.certificates.some(cert => cert.name) && (
+        <div className="border-t border-border pt-6">
+          <h2 className="text-lg uppercase tracking-wider mb-4 font-light text-primary">Certificates</h2>
+          {cvData.certificates.map((cert, index) => (
+            cert.name ? (
+              <div key={index} className="mb-3">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="font-medium text-sm">{cert.name}</h3>
+                    <p className="text-sm">{cert.issuer}</p>
+                  </div>
+                  {cert.date && <p className="text-sm">{formatDate(cert.date)}</p>}
+                </div>
+                {cert.description && <p className="mt-1 text-sm">{cert.description}</p>}
+              </div>
+            ) : null
+          ))}
+        </div>
+      )}
     </div>
   );
 }

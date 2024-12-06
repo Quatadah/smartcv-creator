@@ -100,7 +100,45 @@ export function CompactTemplate({ cvData }: TemplateProps) {
             </div>
           </div>
         )}
+
+        {cvData.languages.some(lang => lang.name) && (
+          <div>
+            <h2 className="text-lg font-semibold mb-2">Languages</h2>
+            <div className="space-y-1">
+              {cvData.languages.map((lang, index) => (
+                lang.name ? (
+                  <div key={index} className="text-sm">
+                    <span className="font-medium">{lang.name}</span>
+                    {lang.proficiency && <span className="ml-2">- {lang.proficiency}</span>}
+                  </div>
+                ) : null
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+
+      {cvData.certificates.some(cert => cert.name) && (
+        <div>
+          <h2 className="text-lg font-semibold mb-2">Certificates</h2>
+          <div className="space-y-2">
+            {cvData.certificates.map((cert, index) => (
+              cert.name ? (
+                <div key={index} className="text-sm">
+                  <div className="flex justify-between">
+                    <div>
+                      <span className="font-medium">{cert.name}</span>
+                      {cert.issuer && <span className="ml-2">• {cert.issuer}</span>}
+                    </div>
+                    {cert.date && <span>{formatDate(cert.date)}</span>}
+                  </div>
+                  {cert.description && <p className="mt-1">{cert.description}</p>}
+                </div>
+              ) : null
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
