@@ -17,9 +17,13 @@ export function PreviewSection({ cvData, template }: PreviewSectionProps) {
   const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   return (
-    <div className="animate-fade-in h-[calc(100vh-8rem)] overflow-y-auto sticky top-8">
-      <div className={`w-[794px] mx-auto shadow-lg ${isDark ? "bg-background" : "bg-white"}`}>
-        <div className="p-8 min-h-[1123px]">
+    <div className="h-screen flex items-center justify-center p-8">
+      <div 
+        className={`w-[21cm] mx-auto shadow-lg transform scale-[0.7] origin-top ${
+          isDark ? "bg-background text-foreground" : "bg-white text-foreground"
+        }`}
+      >
+        <div className="p-8 h-[29.7cm]">
           {template === "modern" && <ModernTemplate cvData={cvData} />}
           {template === "minimal" && <MinimalTemplate cvData={cvData} />}
           {template === "compact" && <CompactTemplate cvData={cvData} />}
