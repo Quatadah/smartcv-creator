@@ -23,6 +23,8 @@ const Editor = () => {
     experience: [],
     education: [],
     skills: [],
+    languages: [],
+    certificates: [],
   };
 
   const [cvData, setCvData] = useState<CVData>(initialData);
@@ -96,8 +98,8 @@ const Editor = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <div className="flex gap-2 mb-6">
-              {["personal", "summary", "experience", "education", "skills"].map(
+            <div className="flex gap-2 mb-6 flex-wrap">
+              {["personal", "summary", "experience", "education", "skills", "languages", "certificates"].map(
                 (section) => (
                   <Button
                     key={section}
