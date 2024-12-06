@@ -17,19 +17,21 @@ export function PreviewSection({ cvData, template }: PreviewSectionProps) {
   const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-8 mt-16">
-      <div 
-        className={`w-full max-w-[1000px] mx-auto shadow-lg transform scale-[0.8] origin-top ${
-          isDark ? "bg-background" : "bg-white"
-        }`}
-      >
-        <div className="p-8 min-h-[29.7cm]">
-          {template === "modern" && <ModernTemplate cvData={cvData} />}
-          {template === "minimal" && <MinimalTemplate cvData={cvData} />}
-          {template === "compact" && <CompactTemplate cvData={cvData} />}
-          {template === "elegant" && <ElegantTemplate cvData={cvData} />}
-          {template === "professional" && <ProfessionalTemplate cvData={cvData} />}
-          {template === "creative" && <CreativeTemplate cvData={cvData} />}
+    <div className="w-full min-h-screen bg-gradient-light">
+      <div className="w-full h-full flex items-center justify-center p-8 mt-16">
+        <div 
+          className={`w-full max-w-[1000px] mx-auto glass-card rounded-xl overflow-hidden animate-fade-up ${
+            isDark ? "bg-background/80" : "bg-background"
+          }`}
+        >
+          <div className="p-8 min-h-[29.7cm]">
+            {template === "modern" && <ModernTemplate cvData={cvData} />}
+            {template === "minimal" && <MinimalTemplate cvData={cvData} />}
+            {template === "compact" && <CompactTemplate cvData={cvData} />}
+            {template === "elegant" && <ElegantTemplate cvData={cvData} />}
+            {template === "professional" && <ProfessionalTemplate cvData={cvData} />}
+            {template === "creative" && <CreativeTemplate cvData={cvData} />}
+          </div>
         </div>
       </div>
     </div>

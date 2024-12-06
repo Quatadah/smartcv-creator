@@ -68,13 +68,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-['Inter'];
+    @apply bg-background font-['Inter'];
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-background/80 backdrop-blur-md border shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply backdrop-blur-md border shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .hover-scale {
