@@ -1,13 +1,12 @@
 import { Confetti } from "@/components/cv/Confetti";
 import { PDFExport } from "@/components/cv/PDFExport";
 import { TemplateSelector } from "@/components/cv/TemplateSelector";
-import { useAuth } from "@/contexts/AuthContext";
 import { CVData } from "@/types/cv";
-import { sampleCVData } from "@/utils/sampleCVData";
 import { Button } from "@nextui-org/react";
-import { ArrowLeft, Home, LogOut, Save, Wand2 } from "lucide-react";
+import { ArrowLeft, Save, Wand2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { sampleCVData } from "@/utils/sampleCVData";
 
 interface EditorHeaderProps {
   showConfetti: boolean;
@@ -28,8 +27,6 @@ export function EditorHeader({
   template,
   setTemplate,
 }: EditorHeaderProps) {
-  const { logout } = useAuth();
-
   const handleAutoFill = () => {
     setCvData(sampleCVData);
     toast.success("CV fields have been filled with sample data");
@@ -42,19 +39,10 @@ export function EditorHeader({
     toast.success("CV data saved successfully!");
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      toast.success("Logged out successfully");
-    } catch (error) {
-      toast.error("Error logging out");
-    }
-  };
-
   return (
     <>
       {showConfetti && <Confetti />}
-      <div className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="sticky top-14 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -66,11 +54,6 @@ export function EditorHeader({
               <TemplateSelector currentTemplate={template} onTemplateChange={setTemplate} />
             </div>
             <div className="flex gap-2">
-              <Link to="/home">
-                <Button variant="bordered" className="hover-scale">
-                  <Home className="mr-2 h-4 w-4" /> My Resumes
-                </Button>
-              </Link>
               <Button onClick={handleAutoFill} variant="bordered" className="hover-scale">
                 <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
               </Button>
@@ -78,9 +61,6 @@ export function EditorHeader({
                 <Save className="mr-2 h-4 w-4" /> Save Progress
               </Button>
               <PDFExport previewRef={previewRef} />
-              <Button onClick={handleLogout} color="danger" variant="flat" className="hover-scale">
-                <LogOut className="mr-2 h-4 w-4" /> Logout
-              </Button>
             </div>
           </div>
         </div>

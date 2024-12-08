@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Editor from "./pages/Editor";
 import Home from "./pages/Home";
 import { useAuth } from "./contexts/AuthContext";
+import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -31,25 +32,28 @@ const App = () => (
             <AuthProvider>
               <Toaster />
               <Sonner />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route
-                  path="/home"
-                  element={
-                    <ProtectedRoute>
-                      <Home />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/editor"
-                  element={
-                    <ProtectedRoute>
-                      <Editor />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
+              <div className="min-h-screen flex flex-col">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route
+                    path="/home"
+                    element={
+                      <ProtectedRoute>
+                        <Home />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/editor"
+                    element={
+                      <ProtectedRoute>
+                        <Editor />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </div>
             </AuthProvider>
           </BrowserRouter>
         </TooltipProvider>
