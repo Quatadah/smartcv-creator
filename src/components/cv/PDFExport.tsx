@@ -40,15 +40,21 @@ export function PDFExport({ previewRef }: PDFExportProps) {
       // Apply A4 specific styles to the cloned element
       element.style.width = `${A4_WIDTH_PX}px`;
       element.style.height = 'auto';
-      element.style.backgroundColor = 'white';
       element.style.padding = '40px';
       element.style.color = '#000000';
 
-      // Force dark text for PDF export
-      const textElements = element.querySelectorAll('*');
-      textElements.forEach((el) => {
-        (el as HTMLElement).style.color = '#000000';
-      });
+      // Remove background styles
+      element.style.background = 'none';
+      element.style.backgroundColor = 'transparent';
+      
+      // Remove background from all child elements
+      const allElements = element.getElementsByTagName('*');
+      for (let i = 0; i < allElements.length; i++) {
+        const el = allElements[i] as HTMLElement;
+        el.style.background = 'none';
+        el.style.backgroundColor = 'transparent';
+        el.style.color = '#000000';
+      }
 
       // Create canvas with higher scale for better quality
       const canvas = await html2canvas(element, {
@@ -57,7 +63,7 @@ export function PDFExport({ previewRef }: PDFExportProps) {
         logging: false,
         width: A4_WIDTH_PX,
         height: element.offsetHeight,
-        backgroundColor: '#ffffff',
+        backgroundColor: null,
       });
 
       // Remove the temporary container
@@ -76,8 +82,8 @@ export function PDFExport({ previewRef }: PDFExportProps) {
 
       // Add the image to the PDF
       pdf.addImage(
-        canvas.toDataURL('image/jpeg', 1.0),
-        'JPEG',
+        canvas.toDataURL('image/png', 1.0),
+        'PNG',
         0,
         0,
         imgWidth,
@@ -94,8 +100,8 @@ export function PDFExport({ previewRef }: PDFExportProps) {
         while (remainingHeight > A4_HEIGHT_PT) {
           pdf.addPage();
           pdf.addImage(
-            canvas.toDataURL('image/jpeg', 1.0),
-            'JPEG',
+            canvas.toDataURL('image/png', 1.0),
+            'PNG',
             0,
             currentPosition,
             imgWidth,
