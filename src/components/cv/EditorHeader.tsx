@@ -7,6 +7,7 @@ import { ArrowLeft, Save, Wand2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { sampleCVData } from "@/utils/sampleCVData";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface EditorHeaderProps {
   showConfetti: boolean;
@@ -42,7 +43,7 @@ export function EditorHeader({
   return (
     <>
       {showConfetti && <Confetti />}
-      <div className="sticky top-14 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -53,7 +54,7 @@ export function EditorHeader({
               </Link>
               <TemplateSelector currentTemplate={template} onTemplateChange={setTemplate} />
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <Button onClick={handleAutoFill} variant="bordered" className="hover-scale">
                 <Wand2 className="mr-2 h-4 w-4" /> Auto Fill
               </Button>
@@ -61,6 +62,7 @@ export function EditorHeader({
                 <Save className="mr-2 h-4 w-4" /> Save Progress
               </Button>
               <PDFExport previewRef={previewRef} />
+              <ThemeToggle />
             </div>
           </div>
         </div>
