@@ -30,7 +30,7 @@ export function UserDropdown() {
   };
 
   const handleSettings = () => {
-    toast.info("Settings page coming soon");
+    navigate("/settings");
     setIsOpen(false);
   };
 
