@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { sampleCVData } from "@/utils/sampleCVData";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { UserDropdown } from "@/components/UserDropdown";
 
 interface EditorHeaderProps {
   showConfetti: boolean;
@@ -63,6 +64,7 @@ export function EditorHeader({
               </Button>
               <PDFExport previewRef={previewRef} />
               <ThemeToggle />
+              <UserDropdown />
             </div>
           </div>
         </div>

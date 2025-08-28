@@ -2,13 +2,15 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { Provider } from '@supabase/supabase-js';
+import { Provider, User } from '@supabase/supabase-js';
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  user: User | null;
   login: (email: string, password: string) => Promise<void>;
   signup: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
   logout: () => Promise<void>;
+  signOut: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signInWithGithub: () => Promise<void>;
 }
@@ -17,12 +19,14 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     // Check initial auth state
     supabase.auth.getSession().then(({ data: { session } }) => {
       setIsAuthenticated(!!session);
+      setUser(session?.user || null);
     });
 
     // Listen for auth changes
@@ -30,6 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsAuthenticated(!!session);
+      setUser(session?.user || null);
     });
 
     return () => subscription.unsubscribe();
@@ -100,15 +105,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     setIsAuthenticated(false);
+    setUser(null);
     navigate('/');
   };
+
+  const signOut = logout;
 
   return (
     <AuthContext.Provider value={{ 
       isAuthenticated, 
+      user,
       login, 
       signup, 
       logout,
+      signOut,
       signInWithGoogle,
       signInWithGithub
     }}>
